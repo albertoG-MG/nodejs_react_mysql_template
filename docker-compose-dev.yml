@@ -1,0 +1,69 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+  nginx:
+    depends_on:
+      - frontend
+      - backend
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
+  backend:
+    build: 
+       dockerfile: Dockerfile.dev
+       context: ./backend
+    volumes:
+      - /home/node/app/node_modules
+      - ./backend:/home/node/app
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    ports:
+      - "3000:3000"
+  testBackend:
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./backend
+    volumes:
+      - /home/node/app/node_modules
+      - ./backend:/home/node/app
+    command: ["npm", "run", "test"]
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /home/node/app/node_modules
+      - ./frontend:/home/node/app
+    ports:
+      - "3001:3000"
+  testFrontend:
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+    volumes:
+      - /home/node/app/node_modules
+      - ./frontend:/home/node/app
+    command: ["npm", "run", "test"]
