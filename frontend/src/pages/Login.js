@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { login } from '../services/authService';
 
 export default function Login({ onLogin }) {
     const [Formulario, setFormulario] = useState({ username: '', password: ''});
@@ -9,14 +10,18 @@ export default function Login({ onLogin }) {
         setFormulario({...Formulario, [name]: value})
     }
 
-    function ValidarFormulario(event){
+    async function ValidarFormulario(event){
         event.preventDefault();
         const Erroresform = Validacion(Formulario);
         setErrores(Erroresform);
 
         if(Object.keys(Erroresform).length === 0){
-            console.log('Formulario validado!');
-            onLogin();
+            try {
+                const token = await login(Formulario.username, Formulario.password);
+                onLogin(token);
+            } catch (error) {
+                setErrores({ general: error.message }); 
+            }
         }
     }
 
@@ -53,6 +58,8 @@ export default function Login({ onLogin }) {
                                         <a href="javascript:void(0);" className="text-blue-600 hover:underline">¿Olvidó su contraseña?</a>
                                     </div>
                                 </div>
+                                
+                                {Errores.general && <p className="text-red-400 break-words">{Errores.general}</p>}
 
                                 <div className="!mt-8">
                                     <button type="submit" className="w-full py-3 px-4 text-sm rounded-lg text-white bg-blue-600 hover:bg-blue-700">Ingresar</button>
