@@ -1,6 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-export default function Login() {
+export default function Login({ onLogin }) {
+    const [Formulario, setFormulario] = useState({ username: '', password: ''});
+    const [Errores, setErrores] = useState({});
+
+    function ActualizarEstado(event){
+        const { name, value } = event.target;;
+        setFormulario({...Formulario, [name]: value})
+    }
+
+    function ValidarFormulario(event){
+        event.preventDefault();
+        const Erroresform = Validacion(Formulario);
+        setErrores(Erroresform);
+
+        if(Object.keys(Erroresform).length === 0){
+            console.log('Formulario validado!');
+            onLogin();
+        }
+    }
+
     return (
         <>
             <div className="bg-gray-50 font-[sans-serif]">
@@ -12,15 +31,17 @@ export default function Login() {
 
                         <div className="p-8 rounded-2xl bg-white shadow">
                             <h2 className="text-gray-800 text-center text-2xl font-bold">Login</h2>
-                            <form className="mt-8 space-y-4">
+                            <form className="mt-8 space-y-4" onSubmit={ValidarFormulario}>
                                 <div>
                                     <label className="text-gray-800 text-sm mb-2 block">Usuario</label>
-                                    <input name="username" type="text" required className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Ingresa tu usuario" />
+                                    <input name="username" type="text" value={Formulario.username} onChange={ActualizarEstado} className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Ingresa tu usuario" />
+                                    {Errores.username && <p className="text-red-400">{Errores.username}</p>}
                                 </div>
 
                                 <div>
                                     <label className="text-gray-800 text-sm mb-2 block">Contraseña</label>
-                                    <input name="password" type="password" required className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Ingresa tu contraseña" />
+                                    <input name="password" type="password" value={Formulario.password} onChange={ActualizarEstado} className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Ingresa tu contraseña" />
+                                    {Errores.password && <p className="text-red-400">{Errores.password}</p>}
                                 </div>
 
                                 <div className="flex flex-wrap items-center justify-between gap-4">
@@ -34,7 +55,7 @@ export default function Login() {
                                 </div>
 
                                 <div className="!mt-8">
-                                    <button type="button" className="w-full py-3 px-4 text-sm rounded-lg text-white bg-blue-600 hover:bg-blue-700">Ingresar</button>
+                                    <button type="submit" className="w-full py-3 px-4 text-sm rounded-lg text-white bg-blue-600 hover:bg-blue-700">Ingresar</button>
                                 </div>
                             </form>
                         </div>
@@ -53,4 +74,18 @@ export default function Login() {
             `}</style>
         </>
     );
+}
+
+function Validacion(values){
+    let Errores = {};
+
+    if(!values.username.trim()){
+        Errores.username = 'Por favor, ingrese su usuario';
+    }
+
+    if(!values.password.trim()){
+        Errores.password = 'Por favor, ingrese su contraseña';
+    }
+
+    return Errores;
 }
