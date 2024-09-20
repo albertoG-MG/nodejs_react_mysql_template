@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import NavbarMenu from './components/NavbarMenu';
 
 export default function App() {
     const [estaAutenticado, setEstaAutenticado] = useState(() => {
@@ -21,10 +22,19 @@ export default function App() {
 
     return (
         <Router>
+            {estaAutenticado && <NavbarMenu />} {/* Muestra el Navbar solo si está autenticado */}
             <Routes>
-                <Route path="/" element={estaAutenticado ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" />} />
-                <Route path="/login" element={<Login onLogin={handleLogin} />} />
-                <Route path="*" element={<Navigate to={estaAutenticado ? "/" : "/login"} />} />
+                {estaAutenticado ? (
+                    <>
+                        <Route path="/" element={<Dashboard onLogout={handleLogout} />} />
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </>
+                ) : (
+                    <>
+                        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+                        <Route path="*" element={<Navigate to="/login" />} />
+                    </>
+                )}
             </Routes>
         </Router>
     );
