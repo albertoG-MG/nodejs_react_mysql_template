@@ -10,4 +10,20 @@ const getUsers = (req, res) => {
     });
 };
 
-module.exports = {getUsers};
+const login = (req, res) => {
+    const { username, password } = req.body;
+
+    userModel.login(username, password, (err, user) => {
+        if (err) {
+            console.error("Error al autenticar usuario: " + err.stack);
+            return res.status(500).json({ error: 'Error al autenticar usuario' });
+        }
+
+        if (!user) {
+            return res.status(401).json({ error: 'Credenciales incorrectas' });
+        }
+        return res.json({ message: 'Autenticación exitosa', user });
+    });
+};
+
+module.exports = {getUsers, login};

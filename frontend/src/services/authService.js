@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/users/login'; // Ruta de inicio de sesión
+const API_URL = '/api/users/login';
 
 export const login = async (username, password) => {
     try {
