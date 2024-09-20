@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import { login } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Login({ onLogin }) {
     const [Formulario, setFormulario] = useState({ username: '', password: ''});
     const [Errores, setErrores] = useState({});
+    const navigate = useNavigate(); 
 
     function ActualizarEstado(event){
         const { name, value } = event.target;;
@@ -19,6 +22,7 @@ export default function Login({ onLogin }) {
             try {
                 const token = await login(Formulario.username, Formulario.password);
                 onLogin(token);
+                navigate('/');
             } catch (error) {
                 setErrores({ general: error.message }); 
             }

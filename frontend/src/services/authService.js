@@ -5,8 +5,13 @@ const API_URL = '/api/users/login';
 export const login = async (username, password) => {
     try {
         const response = await axios.post(API_URL, { username, password });
-        return response.data.token; // Suponiendo que el token está aquí
+        const token = response.data.token;
+
+        // Almacenar el token en el almacenamiento local
+        localStorage.setItem('token', token);
+
+        return token;
     } catch (error) {
-        throw new Error(error.response?.data?.message || 'Error en las credenciales');
+        throw new Error(error.response?.data?.error || 'Error en las credenciales');
     }
 };
