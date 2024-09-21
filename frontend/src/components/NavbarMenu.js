@@ -12,12 +12,20 @@ import {
     NavbarToggle,
 } from "flowbite-react";
 
-export default function NavbarMenu() {
+export default function NavbarMenu({ onToggleSidebar }) {
     return (
-      <Navbar fluid className="bg-gradient-to-r from-orange-400 to-red-500 px-6">
-        <span className="self-center text-3xl font-bold text-white font-inter">
-          INTRANET
-        </span>
+      <>
+      <Navbar fluid className="relative z-10 bg-gradient-to-r from-orange-400 to-red-500 px-6 shadow-lg z-50">
+        <div className="flex items-center gap-3">
+          <button onClick={onToggleSidebar}  name="hamburger" className="px-4 md:hidden">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+          </button>
+          <span className="self-center text-3xl font-bold text-white font-inter">
+            INTRANET
+          </span>
+        </div>
         <div className="flex items-center md:order-2">
           <Dropdown
             arrowIcon={false}
@@ -42,6 +50,7 @@ export default function NavbarMenu() {
           </Dropdown>
         </div>
       </Navbar>
+      </>
     );
 }
   
