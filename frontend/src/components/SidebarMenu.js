@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
 
 export default function SidebarMenu({ isOpen }) {
+  const [abiertoUsuarios, setabiertoUsuarios] = useState(false);
+
+  const abrirSubmenuUsuarios = () => {
+    setabiertoUsuarios(!abiertoUsuarios);
+  };
+
   return (
     <>
     <nav className={`bg-white shadow-lg h-full md:h-screen fixed top-[4.1rem] left-0 min-w-[260px] py-6 px-4 font-[sans-serif] flex flex-col overflow-auto transition-all duration-300 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'} md:block`}>
@@ -26,15 +32,21 @@ export default function SidebarMenu({ isOpen }) {
                 </a>
             </li>
             <li className="group">
-                <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-indigo-600 text-sm flex items-center rounded-md px-4 py-2 transition-all">
+                <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-indigo-600 text-sm flex items-center rounded-md px-4 py-2 transition-all" onClick={abrirSubmenuUsuarios}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-3">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                     </svg>
                     <span class="font-semibold">Usuarios</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-3 ml-auto" viewBox="0 0 451.847 451.847">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        className={`w-3 ml-auto -rotate-90 transition-transform duration-300 ${abiertoUsuarios ? 'rotate-0' : ''}`}
+                        viewBox="0 0 451.847 451.847"
+                    >
                         <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" />
                     </svg>
                 </a>
+                {abiertoUsuarios && (
                 <ul className="space-y-2 pl-4">
                     <li>
                         <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-indigo-600 text-sm flex items-center rounded-md px-4 py-2 transition-all">
@@ -53,6 +65,7 @@ export default function SidebarMenu({ isOpen }) {
                         </a>
                     </li>
                 </ul>
+                )}
             </li>
         </ul>
     </nav>
