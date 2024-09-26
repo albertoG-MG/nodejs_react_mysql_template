@@ -56,7 +56,7 @@ export default function App() {
                     <NavbarMenu onToggleSidebar={toggleSidebar} onLogout={handleLogout}/>
                     <SidebarMenu isOpen={isSidebarOpen} />
                     <div className={`min-h-screen transition-all duration-300 ${shouldShowOverlay ? 'bg-black opacity-50' : ''}`}>
-                        <div className="relative top-[58px] py-4 px-8">
+                        <div className="relative top-[58px] ml-0 md:ml-64 py-6 px-8">
                             <Routes>
                                     <Route path="/" element={<Dashboard onLogout={handleLogout} />} />
                                     <Route path="*" element={<Navigate to="/" />} />
