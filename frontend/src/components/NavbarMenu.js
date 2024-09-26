@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 
-export default function NavbarMenu({ onToggleSidebar }) {
+export default function NavbarMenu({ onToggleSidebar, onLogout }) {
   const [Opciones, setOpciones] = useState(false);
   const menuOpcionesRef = useRef(null);
 
@@ -70,7 +70,7 @@ export default function NavbarMenu({ onToggleSidebar }) {
               </div>
               <div className={`absolute shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none bg-white rounded-md right-0 w-48 py-2 z-10 ${Opciones ? 'block' : 'hidden'} `}>
                 <span className="block font-semibold hover:bg-gray-50 px-3 py-2 cursor-pointer">Mi perfil</span>
-                <span className="block font-semibold hover:bg-gray-50 px-3 py-2 cursor-pointer">Cerrar sesión</span>
+                <span className="block font-semibold hover:bg-gray-50 px-3 py-2 cursor-pointer" onClick={onLogout}>Cerrar sesión</span>
               </div>
             </div>
           </div>

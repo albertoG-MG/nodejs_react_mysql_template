@@ -50,7 +50,7 @@ export default function App() {
         <Router>
             {estaAutenticado ? (
                 <>
-                    <NavbarMenu onToggleSidebar={toggleSidebar} />
+                    <NavbarMenu onToggleSidebar={toggleSidebar} onLogout={handleLogout}/>
                     <SidebarMenu isOpen={isSidebarOpen} />
                     <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
                         <Routes>
