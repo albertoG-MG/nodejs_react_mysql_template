@@ -68,8 +68,9 @@ export default function NavbarMenu({ onToggleSidebar }) {
               <div className="block text-center cursor-pointer" onClick={() => setOpciones(!Opciones)}>
                 <img src="https://static01.nyt.com/images/2019/11/08/world/08quebec/08quebec-superJumbo.jpg" className="object-cover btn- h-9 w-9 rounded-full mr-2 bg-gray-300" alt="" />
               </div>
-              <div className={`absolute shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none bg-white rounded-md right-0 w-48 z-10 ${Opciones ? 'block' : 'hidden'} `}>
-                <p>hola</p>
+              <div className={`absolute shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none bg-white rounded-md right-0 w-48 py-2 z-10 ${Opciones ? 'block' : 'hidden'} `}>
+                <span className="block font-semibold hover:bg-gray-50 px-3 py-2 cursor-pointer">Mi perfil</span>
+                <span className="block font-semibold hover:bg-gray-50 px-3 py-2 cursor-pointer">Cerrar sesión</span>
               </div>
             </div>
           </div>
