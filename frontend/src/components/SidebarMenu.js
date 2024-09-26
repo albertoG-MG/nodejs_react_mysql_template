@@ -9,7 +9,7 @@ export default function SidebarMenu({ isOpen }) {
 
   return (
     <>
-    <nav className={`bg-white shadow-lg h-full md:h-screen fixed top-[4.1rem] left-0 min-w-[260px] py-6 px-4 font-[sans-serif] flex flex-col overflow-auto transition-all duration-300 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'} md:block`}>
+    <nav className={`z-[9] bg-white shadow-lg h-full md:h-screen fixed top-[4.1rem] left-0 min-w-[260px] py-6 px-4 font-[sans-serif] flex flex-col overflow-auto transition-all duration-300 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'} md:block`}>
         {/* 
         <div className="flex flex-wrap items-center cursor-pointer">
             <div className="relative">

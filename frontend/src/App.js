@@ -53,10 +53,12 @@ export default function App() {
                     <NavbarMenu onToggleSidebar={toggleSidebar} onLogout={handleLogout}/>
                     <SidebarMenu isOpen={isSidebarOpen} />
                     <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
-                        <Routes>
-                            <Route path="/" element={<Dashboard onLogout={handleLogout} />} />
-                            <Route path="*" element={<Navigate to="/" />} />
-                        </Routes>
+                        <div className="relative top-[58px] py-4 px-8">
+                            <Routes>
+                                    <Route path="/" element={<Dashboard onLogout={handleLogout} />} />
+                                    <Route path="*" element={<Navigate to="/" />} />
+                            </Routes>
+                        </div>
                     </div>   
                 </>
             ) : (
