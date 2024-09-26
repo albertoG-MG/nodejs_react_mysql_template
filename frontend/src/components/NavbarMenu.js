@@ -24,7 +24,7 @@ export default function NavbarMenu({ onToggleSidebar }) {
     <div className="bg-white fixed top-0 w-full z-10">
       <div className="w-full border-b-2 border-gray-200">
         <div className="flex justify-between items-center mx-auto h-16 px-4">
-          <button onClick={onToggleSidebar}  name="hamburger" className="px-4 md:hidden">
+          <button onClick={onToggleSidebar}  name="hamburger" className="px-2 md:hidden">
               <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
               </svg>
