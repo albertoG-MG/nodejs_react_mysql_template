@@ -11,6 +11,7 @@ export default function App() {
         return localStorage.getItem('token') !== null;
     });
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const handleLogin = (token) => {
         localStorage.setItem('token', token); // Guarda el token en localStorage
@@ -27,7 +28,7 @@ export default function App() {
     };
 
     const handleResize = () => {
-        // Si la ventana es más pequeña que 'md', cerrar el sidebar
+        setWindowWidth(window.innerWidth);
         if (window.innerWidth < 768) { // 768px es el punto de ruptura para md
             setIsSidebarOpen(false);
         } else {
@@ -46,14 +47,16 @@ export default function App() {
         };
     }, []);
 
+    const shouldShowOverlay = windowWidth < 768 && isSidebarOpen;
+
     return (
         <Router>
             {estaAutenticado ? (
                 <>
                     <NavbarMenu onToggleSidebar={toggleSidebar} onLogout={handleLogout}/>
                     <SidebarMenu isOpen={isSidebarOpen} />
-                    <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
-                        <div className="relative top-[58px] py-4 px-8">
+                    <div className={`transition-all duration-300 ${shouldShowOverlay ? 'bg-black opacity-50' : ''}`}>
+                        <div className="relative top-[58px] min-h-screen py-4 px-8">
                             <Routes>
                                     <Route path="/" element={<Dashboard onLogout={handleLogout} />} />
                                     <Route path="*" element={<Navigate to="/" />} />
