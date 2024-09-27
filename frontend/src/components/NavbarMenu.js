@@ -17,6 +17,12 @@ export default function NavbarMenu({ onToggleSidebar, onLogout }) {
       document.removeEventListener('click', handleClickOutside);
     };
   }, []);
+
+  const manejarKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      setOpciones(!Opciones); // Llama a la misma función que el onClick
+    }
+  };
  
 
   return (
@@ -49,7 +55,7 @@ export default function NavbarMenu({ onToggleSidebar, onLogout }) {
             <input placeholder="Type to search" type="search" aria-label="Buscar en el sitio web" className="border border-gray-300 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm w-full rounded-lg pt-2 pb-2 pl-10 px-3 py-2" />
           </div>
           <div className="md:space-x-6 justify-end items-center ml-auto flex space-x-3">
-            <div className="relative cursor-pointer" role="button" aria-label="Notificaciones">
+            <div className="relative cursor-pointer" role="button" aria-label="Notificaciones" tabIndex="0">
               <p className="pt-1 pr-1 pb-1 pl-1 bg-white text-gray-700 rounded-full transition-all duration-200 hover:text-gray-900 focus:outline-none hover:bg-gray-100">
                 <span className="justify-center items-center flex">
                   <span className="justify-center items-center flex">
@@ -65,7 +71,7 @@ export default function NavbarMenu({ onToggleSidebar, onLogout }) {
               <p className="px-1.5 py-0.5 font-semibold text-xs items-center bg-indigo-600 text-white rounded-full inline-flex absolute -top-px -right-1">2</p>
             </div>
             <div className="relative"  ref={menuOpcionesRef}>
-              <div className="block text-center cursor-pointer" onClick={() => setOpciones(!Opciones)} aria-haspopup="true" aria-expanded={Opciones} aria-label="Opciones de perfil">
+              <div className="block text-center cursor-pointer" onClick={() => setOpciones(!Opciones)} onKeyDown={manejarKeyDown} aria-haspopup="true" aria-expanded={Opciones} aria-label="Opciones de perfil" tabIndex="0">
                 <img src="https://static01.nyt.com/images/2019/11/08/world/08quebec/08quebec-superJumbo.jpg" className="object-cover btn- h-9 w-9 rounded-full mr-2 bg-gray-300" alt="Foto de perfil" />
               </div>
               <div className={`absolute shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none bg-white rounded-md right-0 w-48 py-2 z-10 ${Opciones ? 'block' : 'hidden'} `} role="menu" aria-label="Menú de perfil">
