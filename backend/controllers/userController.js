@@ -1,14 +1,31 @@
 const userModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
-const getUsers = (req, res) => {
-    userModel.getUsers((err, users) => {
-        if (err) {
-            console.error("Error al obtener usuarios: " + err.stack);
-            return res.status(500).json({ error: 'Error al obtener usuarios' });
-        }
-        return res.json(users);
-    });
+const getUsers = async (req, res) => {
+    const { query, limit = 10, skip = 0, sortField = "id", sortOrder = "ASC" } = req.query;
+
+    // Convertir limit y skip a números
+    const numericLimit = Number(limit);
+    const numericSkip = Number(skip);
+
+    try {
+        // Obtén los usuarios
+        userModel.getUsers(query, numericLimit, numericSkip, sortField, sortOrder, async (err, users) => {
+            if (err) {
+                console.error("Error al obtener usuarios: " + err.stack);
+                return res.status(500).json({ error: 'Error al obtener usuarios' });
+            }
+
+            // Obtén el total de usuarios
+            const totalUsers = await userModel.getTotalUsers(query);
+
+            // Envía la respuesta en el formato correcto
+            return res.json({ items: users, total: totalUsers });
+        });
+    } catch (error) {
+        console.error("Error en la consulta: " + error);
+        return res.status(500).json({ error: 'Error en la consulta' });
+    }
 };
 
 const login = (req, res) => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import ConsultaUsuarios from './pages/usuarios/Consulta';
 import NavbarMenu from './components/NavbarMenu';
 import SidebarMenu from './components/SidebarMenu';
 
@@ -59,6 +60,7 @@ export default function App() {
                         <div className="relative top-[58px] ml-0 md:ml-64 py-6 px-8">
                             <Routes>
                                     <Route path="/" element={<Dashboard onLogout={handleLogout} />} />
+                                    <Route path="/usuarios/consulta" element={<ConsultaUsuarios />} />
                                     <Route path="*" element={<Navigate to="/" />} />
                             </Routes>
                         </div>
