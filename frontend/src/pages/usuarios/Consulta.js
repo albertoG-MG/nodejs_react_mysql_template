@@ -46,7 +46,7 @@ export default function Consulta(){
 	
 	return (
 		<>
-		  <h1>Usuarios</h1>
+		  <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5">Usuarios</h1>
 		  <Table
 			cols={cols}
 			data={data}

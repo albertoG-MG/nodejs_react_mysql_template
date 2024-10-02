@@ -50,16 +50,26 @@ import {
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th key={header.id} {...(header.column.getCanSort() ? { onClick: header.column.getToggleSortingHandler() }: {})}>
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
+                    <div className="flex gap-3">
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
   
-                    {header.column.getIsSorted() === "asc" ? (
-                      <span> 🔼</span>
-                    ) : header.column.getIsSorted() === "desc" ? (
-                      <span> 🔽</span>
-                    ) : null}
+                      {header.column.getIsSorted() === "asc" ? (
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                          </svg>
+                        </span>
+                      ) : header.column.getIsSorted() === "desc" ? (
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                          </svg>
+                        </span>
+                      ) : null}
+                    </div>
                   </th>
                 ))}
               </tr>
@@ -68,7 +78,7 @@ import {
           <tbody>
             {loading ? (
               <tr>
-                <td colspan="100%">
+                <td colSpan="100%">
                   <Loader />
                 </td>
               </tr>
