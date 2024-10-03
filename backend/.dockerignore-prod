@@ -1,0 +1,34 @@
+# Ignorar la carpeta de node_modules (se instalarán las dependencias en la imagen)
+node_modules
+
+# Ignorar archivos de construcción
+build
+dist
+
+# Ignorar archivos de configuración del entorno
+.env
+.env.local
+.env.development
+.env.test
+.env.example
+
+# Ignorar archivos de log
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Ignorar archivos de sistema
+.DS_Store
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignorar carpetas de herramientas de desarrollo
+coverage
+.vscode
+.idea
+
+# Ignorar archivos de pruebas
+*.spec.js
+*.test.js
