@@ -1,2 +1,38 @@
 # Ignorar la carpeta de node_modules
 node_modules
+
+# Ignorar archivos de construcción temporales
+build
+dist
+
+# Ignorar archivos de configuración del entorno
+.env
+.env.local
+.env.development
+.env.test
+
+# Ignorar archivos de log
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Ignorar archivos de sistema
+.DS_Store
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignorar archivos de pruebas (si se ejecutan localmente)
+*.spec.js
+*.test.js
+
+# Ignorar configuraciones de IDE
+.vscode
+.idea
+
+# Ignorar carpeta de documentación
+docs
+
+# Ignorar otros archivos temporales o de sistema
+coverage
