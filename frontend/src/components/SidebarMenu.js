@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 export default function SidebarMenu({ isOpen }) {
   const [abiertoUsuarios, setabiertoUsuarios] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     setabiertoUsuarios(location.pathname.includes('/usuarios'));
