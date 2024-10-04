@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:8080/api/users/checarcorreo';
 
 export default async function useApiChecarCorreo(token, { correo }) {
     try {
-        const response = await axios.post(`${API_URL}`, 
+        const response = await axios.post(API_URL, 
             { correo }, 
             {
                 headers: {
