@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ConsultaUsuarios from './pages/usuarios/Consulta';
+import CrearUsuarios from './pages/usuarios/Crearusuarios';
 import NavbarMenu from './components/NavbarMenu';
 import SidebarMenu from './components/SidebarMenu';
 
@@ -61,6 +62,7 @@ export default function App() {
                             <Routes>
                                     <Route path="/" element={<Dashboard onLogout={handleLogout} />} />
                                     <Route path="/usuarios/consulta" element={<ConsultaUsuarios />} />
+                                    <Route path="/usuarios/crear" element={<CrearUsuarios />} />
                                     <Route path="*" element={<Navigate to="/" />} />
                             </Routes>
                         </div>

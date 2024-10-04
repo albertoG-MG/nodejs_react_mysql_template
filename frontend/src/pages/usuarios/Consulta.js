@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "../../components/Table";
 import { usePagination } from "../../hooks/UsePagination";
 import { useSorting } from "../../hooks/UseSorting";
-import useAPI  from "../../services/ApiConsultaUsuarios";
+import useAPI  from "../../services/usuarios/ApiConsultaUsuarios";
 
 
 const cols = [
