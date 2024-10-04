@@ -14,20 +14,33 @@ export default async function useApiChecarCorreo(token, { correo }) {
             }
         );
 
-        return response.data;
+        return {
+            success: true,
+            message: 'Correo válido.',
+            data: response.data
+        };
+
     } catch (error) {
         console.error('Error en la solicitud a la API:', error);
+
+        let errorMessage = 'Error inesperado.';
 
         // Verifica si hay respuesta y maneja el error
         if (error.response) {
             // La solicitud se hizo y el servidor respondió con un código de error
-            return { error: error.response.data.message || 'Error en la conexión a la API.' };
+            errorMessage = error.response.data.message || 'Error en la conexión a la API.';
         } else if (error.request) {
             // La solicitud se hizo pero no se recibió respuesta
-            return { error: 'No se recibió respuesta del servidor.' };
+            errorMessage = 'No se recibió respuesta del servidor.';
         } else {
             // Ocurrió un error al configurar la solicitud
-            return { error: 'Error en la configuración de la solicitud.' };
+            errorMessage = 'Error en la configuración de la solicitud.';
         }
+
+        return {
+            success: false,
+            message: errorMessage,
+            data: null
+        };
     }
 }

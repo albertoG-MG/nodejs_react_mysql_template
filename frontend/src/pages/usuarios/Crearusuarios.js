@@ -74,20 +74,36 @@ export default function Crearusuario() {
             try {
                 if (name === 'username') {
                     // Verifica si el nombre de usuario ya existe
-                    const { error: errorUsername } = await useApiChecarUsuario(token, { username: value });
-                    setErrores((prev) => ({ ...prev, username: errorUsername ? 'El nombre de usuario ya existe.' : '' }));
+                    const { success, message } = await useApiChecarUsuario(token, { username: value });
+
+                    if (!success) {
+                        setErrores((prev) => ({ ...prev, username: message }));
+                    } else {
+                        setErrores((prev) => ({ ...prev, username: '' }));
+                    }
+
                 } else if (name === 'password') {
                     // Verifica si la contraseña está en la blacklist
-                    const { error: errorPasswordBlacklist } = await useApiChecarPassword(token, { password: value });
-                    setErrores((prev) => ({ ...prev, password: errorPasswordBlacklist ? 'La contraseña está en la lista negra.' : '' }));
+                    const { success, message } = await useApiChecarPassword(token, { password: value });
+
+                    if (!success) {
+                        setErrores((prev) => ({ ...prev, password: message }));
+                    } else {
+                        setErrores((prev) => ({ ...prev, password: '' }));
+                    }
                 } else if (name === 'correo') {
                     // Verifica si el correo está repetido
-                    const { error: errorCorreo } = await useApiChecarCorreo(token, { correo: value });
-                    setErrores((prev) => ({ ...prev, correo: errorCorreo ? 'El correo está repetido.' : '' }));
+                    const { success, message } = await useApiChecarCorreo(token, { correo: value });
+
+                    if (!success) {
+                        setErrores((prev) => ({ ...prev, correo: message }));
+                    } else {
+                        setErrores((prev) => ({ ...prev, correo: '' }));
+                    }
                 }
             } catch (err) {
                 console.error('Error en la llamada a la API:', err);
-                setErrores((prev) => ({ ...prev, general: 'Error inesperado. Por favor intenta de nuevo más tarde.' }));
+                setErrores((prev) => ({ ...prev, username: '', password: '', correo: '' }));
             }
         }
     };
@@ -302,8 +318,6 @@ export default function Crearusuario() {
                 >
                     Crear Usuario
                 </button>
-
-                {Errores.general && <p className="text-red-500">{Errores.general}</p>}
             </form>
         </>
     );
