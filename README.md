@@ -1,4 +1,4 @@
-This Docker image provides a full-stack template for building web applications using the following technologies:
+This project provides a full-stack template for building web applications using the following technologies:
 
 - React + TanStack + Tailwind CSS: A Powerful Frontend Stack for Dynamic and Customizable UI Design (PORT 3001)
 - Node.js (backend) for handling API requests and server-side logic. (PORT 3000)
@@ -12,15 +12,18 @@ Features:
 - Optimized Dockerfile structure, including multi-stage builds to minimize image size and improve deployment speed.
 
 How to use:
-- Frontend: Build your React application with Tailwind CSS for styling.
-- Backend: Use Node.js for your API and server logic.
-- Database: Connect to the MySQL database for data storage and management.
+- Frontend: Build your React application with Tailwind CSS for styling (You can use npm run start or run docker image por development purposes).
+- Backend: Use Node.js for your API and server logic (Same as front end, you can use npm run dev for development, it has supervisor installed).
+- Database: Connect to the MySQL database for data storage and management (You can download an image from docker hub or install a server provider like wamp or xampp).
 
 This setup uses the official NGINX image to serve static files from the React frontend and route API calls to the Node.js backend. The NGINX instance is configured to:
 
 - Serve static files from React: It efficiently delivers the built React application, ensuring fast load times for users.
 - Proxy API requests to the Node.js backend: All API calls made from the React application are forwarded to the Node.js service, enabling seamless communication between the frontend and backend.
 
+(I have also included and official nginx folder that contains and .exe in case docker doesn't work in your computer)
+
+Structure of the project
 
 ```/Your_proyect
 
