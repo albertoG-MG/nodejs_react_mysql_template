@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import useApiChecarUsuario from "../../services/usuarios/crear_usuarios/ApiChecarUsuario";
-import useApiChecarPassword from "../../services/usuarios/crear_usuarios/ApiChecarPassword";
-import useApiChecarCorreo from "../../services/usuarios/crear_usuarios/ApiChecarCorreo";
+import useApiChecarUsuario from "../../services/usuarios/crear_usuarios/validacion/ApiChecarUsuario";
+import useApiChecarPassword from "../../services/usuarios/crear_usuarios/validacion/ApiChecarPassword";
+import useApiChecarCorreo from "../../services/usuarios/crear_usuarios/validacion/ApiChecarCorreo";
 
 export default function Crearusuario() {
     // Definición de cada uno de los campos del formulario
