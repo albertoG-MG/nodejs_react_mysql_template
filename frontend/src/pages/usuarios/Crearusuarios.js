@@ -188,7 +188,7 @@ export default function Crearusuario() {
 
     return (
         <>
-            <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Crear Usuarios</h1>
+            <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Crear Usuario</h1>
             <form onSubmit={manejarEnvio}>
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Ingrese su usuario</label>
@@ -199,7 +199,7 @@ export default function Crearusuario() {
                             </svg>
                         </div>
                         <input
-                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                             type="text"
                             name="username"
                             placeholder="Usuario"
@@ -219,7 +219,7 @@ export default function Crearusuario() {
                             </svg>
                         </div>
                         <input
-                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                             type="password"
                             name="password"
                             placeholder="Contraseña"
@@ -239,7 +239,7 @@ export default function Crearusuario() {
                             </svg>
                         </div>
                         <input
-                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                             type="password"
                             name="confirmpassword"
                             placeholder="Confirma tu contraseña"
@@ -259,7 +259,7 @@ export default function Crearusuario() {
                             </svg>
                         </div>
                         <input
-                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                             type="text"
                             name="nombre"
                             placeholder="Nombre"
@@ -279,7 +279,7 @@ export default function Crearusuario() {
                             </svg>
                         </div>
                         <input
-                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                             type="text"
                             name="apellido_pat"
                             placeholder="Apellido Paterno"
@@ -299,7 +299,7 @@ export default function Crearusuario() {
                             </svg>
                         </div>
                         <input
-                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                             type="text"
                             name="apellido_mat"
                             placeholder="Apellido Materno"
@@ -319,7 +319,7 @@ export default function Crearusuario() {
                             </svg>
                         </div>
                         <input
-                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                             type="email"
                             name="correo"
                             placeholder="Correo Electrónico"
