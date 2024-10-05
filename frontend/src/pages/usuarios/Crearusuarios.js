@@ -188,11 +188,12 @@ export default function Crearusuario() {
 
     return (
         <>
+            <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Crear Usuarios</h1>
             <form onSubmit={manejarEnvio}>
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Ingrese su usuario</label>
                     <div className="group flex">
-                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
                             <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
                             </svg>
@@ -212,9 +213,9 @@ export default function Crearusuario() {
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Ingrese su contraseña</label>
                     <div className="group flex">
-                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18Z" />
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"></path>
                             </svg>
                         </div>
                         <input
@@ -232,9 +233,9 @@ export default function Crearusuario() {
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Confirma tu contraseña</label>
                     <div className="group flex">
-                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18Z" />
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"></path>
                             </svg>
                         </div>
                         <input
@@ -251,53 +252,81 @@ export default function Crearusuario() {
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Nombre</label>
-                    <input
-                        className="py-2 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
-                        type="text"
-                        name="nombre"
-                        placeholder="Nombre"
-                        value={Campos.nombre}
-                        onChange={manejarCambio}
-                    />
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            type="text"
+                            name="nombre"
+                            placeholder="Nombre"
+                            value={Campos.nombre}
+                            onChange={manejarCambio}
+                        />
+                    </div>
                     {Errores.nombre && <p className="text-red-500">{Errores.nombre}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Apellido Paterno</label>
-                    <input
-                        className="py-2 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
-                        type="text"
-                        name="apellido_pat"
-                        placeholder="Apellido Paterno"
-                        value={Campos.apellido_pat}
-                        onChange={manejarCambio}
-                    />
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            type="text"
+                            name="apellido_pat"
+                            placeholder="Apellido Paterno"
+                            value={Campos.apellido_pat}
+                            onChange={manejarCambio}
+                        />
+                    </div>
                     {Errores.apellido_pat && <p className="text-red-500">{Errores.apellido_pat}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Apellido Materno</label>
-                    <input
-                        className="py-2 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
-                        type="text"
-                        name="apellido_mat"
-                        placeholder="Apellido Materno"
-                        value={Campos.apellido_mat}
-                        onChange={manejarCambio}
-                    />
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            type="text"
+                            name="apellido_mat"
+                            placeholder="Apellido Materno"
+                            value={Campos.apellido_mat}
+                            onChange={manejarCambio}
+                        />
+                    </div>
                     {Errores.apellido_mat && <p className="text-red-500">{Errores.apellido_mat}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Correo Electrónico</label>
-                    <input
-                        className="py-2 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
-                        type="email"
-                        name="correo"
-                        placeholder="Correo Electrónico"
-                        value={Campos.correo}
-                        onChange={manejarCambio}
-                    />
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                            type="email"
+                            name="correo"
+                            placeholder="Correo Electrónico"
+                            value={Campos.correo}
+                            onChange={manejarCambio}
+                        />
+                    </div>
                     {Errores.correo && <p className="text-red-500">{Errores.correo}</p>}
                 </div>
 
@@ -311,13 +340,15 @@ export default function Crearusuario() {
                     />
                     {Errores.foto && <p className="text-red-500">{Errores.foto}</p>}
                 </div>
-
-                <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5"
-                    type="submit"
-                >
-                    Crear Usuario
-                </button>
+                <div class="mt-8 h-px bg-slate-200"></div>
+                <div className="text-right">
+                    <button
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5"
+                        type="submit"
+                    >
+                        Crear Usuario
+                    </button>
+                </div>
             </form>
         </>
     );
