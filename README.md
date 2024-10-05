@@ -10,6 +10,7 @@ Features:
 - Tailored for scalability and performance, leveraging the flexibility of Docker containers.
 - Quick setup for local development or production environments.
 - Optimized Dockerfile structure, including multi-stage builds to minimize image size and improve deployment speed.
+- Integrated TanStack Table for efficient and scalable data table management using SOLID principles.
 
 How to use:
 - Frontend: Build your React application with Tailwind CSS for styling (You can use npm run start or run docker image por development purposes).
@@ -21,7 +22,7 @@ This setup uses the official NGINX image to serve static files from the React fr
 - Serve static files from React: It efficiently delivers the built React application, ensuring fast load times for users.
 - Proxy API requests to the Node.js backend: All API calls made from the React application are forwarded to the Node.js service, enabling seamless communication between the frontend and backend.
 
-(I have also included and official nginx folder that contains and .exe in case docker doesn't work in your computer)
+(I have also included and official nginx folder that contains a nginx.exe in case docker doesn't work in your computer)
 
 Structure of the project
 
