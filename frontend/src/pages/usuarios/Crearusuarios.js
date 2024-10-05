@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useApiChecarUsuario from "../../services/usuarios/crear_usuarios/validacion/ApiChecarUsuario";
 import useApiChecarPassword from "../../services/usuarios/crear_usuarios/validacion/ApiChecarPassword";
 import useApiChecarCorreo from "../../services/usuarios/crear_usuarios/validacion/ApiChecarCorreo";
+import ObtenerRoles from '../../components/crear_usuarios/ObtenerRoles';
 
 export default function Crearusuario() {
     // Definición de cada uno de los campos del formulario
@@ -329,7 +330,7 @@ export default function Crearusuario() {
                     </div>
                     {Errores.correo && <p className="text-red-500">{Errores.correo}</p>}
                 </div>
-
+                <ObtenerRoles />
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Foto de Perfil</label>
                     <input
