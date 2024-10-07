@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const userService = require('../services/login/loginService');
 const jwt = require('jsonwebtoken');
 
 const getUsers = async (req, res) => {
@@ -28,14 +29,11 @@ const getUsers = async (req, res) => {
     }
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
     const { username, password } = req.body;
 
-    userModel.login(username, password, (err, user) => {
-        if (err) {
-            console.error("Error al autenticar usuario: " + err.stack);
-            return res.status(500).json({ error: 'Error al autenticar usuario' });
-        }
+    try {
+        const user = await userService.login(username, password);
 
         if (!user) {
             return res.status(401).json({ error: 'Credenciales incorrectas' });
@@ -46,7 +44,10 @@ const login = (req, res) => {
         });
 
         return res.json({ message: 'Autenticación exitosa', token });
-    });
+    } catch (err) {
+        console.error("Error al autenticar usuario: " + err.stack);
+        return res.status(500).json({ error: 'Error al autenticar usuario' });
+    }
 };
 
 module.exports = { getUsers, login };
