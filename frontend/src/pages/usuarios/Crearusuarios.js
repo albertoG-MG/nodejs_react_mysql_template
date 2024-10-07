@@ -4,6 +4,7 @@ import useApiChecarPassword from "../../services/usuarios/form_services/validaci
 import useApiChecarCorreo from "../../services/usuarios/form_services/validacion/ApiChecarCorreo";
 import ObtenerRoles from '../../components/form_components/ObtenerRoles';
 import ObtenerSubRoles from '../../components/form_components/ObtenerSubRoles';
+import ObtenerDepartamentos from '../../components/form_components/ObtenerDepartamentos';
 
 export default function Crearusuario() {
     // Definición de cada uno de los campos del formulario
@@ -341,6 +342,7 @@ export default function Crearusuario() {
                 </div>
                 <ObtenerRoles onRoleSelect={handleRoleSelect}/>
                 <ObtenerSubRoles selectedRoleId={selectedRoleId} />
+                <ObtenerDepartamentos selectedRoleId={selectedRoleId} />
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Foto de Perfil</label>
                     <input
