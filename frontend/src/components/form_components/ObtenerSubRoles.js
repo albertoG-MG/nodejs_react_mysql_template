@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchSubroles } from '../../services/usuarios/crear_usuarios/obtener_subroles/SubrolService';
+import { fetchSubroles } from '../../services/usuarios/form_services/obtener_subroles/SubrolService';
 
 const SubrolesComponent = ({ selectedRoleId }) => {
   const [subroles, setSubRoles] = useState([]);

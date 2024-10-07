@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchRoles } from '../../services/usuarios/crear_usuarios/obtener_roles/RoleService';
+import { fetchRoles } from '../../services/usuarios/form_services/obtener_roles/RoleService';
 
 const RolesComponent = ({ onRoleSelect }) => {
   const [roles, setRoles] = useState([]);
