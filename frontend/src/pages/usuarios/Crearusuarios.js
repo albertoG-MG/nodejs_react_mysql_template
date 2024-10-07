@@ -28,6 +28,9 @@ export default function Crearusuario() {
     //Guarda el rol seleccionado
     const [selectedRoleId, setSelectedRoleId] = useState('');
 
+    //Estado para las imágenes
+    const [imagePreview, setImagePreview] = useState(null);
+
     //Función que actualiza el rol
     const handleRoleSelect = (roleId) => {
         setSelectedRoleId(roleId);
@@ -70,6 +73,10 @@ export default function Crearusuario() {
                     [name]: ''
                 }));
             }
+
+             // Crear una URL de objeto para la vista previa de la imagen
+             const previewUrl = URL.createObjectURL(selectedFile);
+             setImagePreview(previewUrl);
         } else {
             // Actualiza el estado del campo
             setCampos((prevCampos) => ({
@@ -343,6 +350,12 @@ export default function Crearusuario() {
                 <ObtenerRoles onRoleSelect={handleRoleSelect}/>
                 <ObtenerSubRoles selectedRoleId={selectedRoleId} />
                 <ObtenerDepartamentos selectedRoleId={selectedRoleId} />
+                {imagePreview && (
+                    <div className="grid grid-cols-1 mt-5 mx-7">
+                        <h3>Previsualización de la imagen:</h3>
+                        <img src={imagePreview} alt="Vista previa" style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                    </div>
+                )}
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Foto de Perfil (opcional)</label>
                     <input
