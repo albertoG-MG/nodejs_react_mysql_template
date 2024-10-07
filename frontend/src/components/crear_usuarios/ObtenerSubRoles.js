@@ -10,7 +10,6 @@ const SubrolesComponent = ({ selectedRoleId }) => {
 
   useEffect(() => {
     const getSubRoles = async () => {
-      if (!selectedRoleId) return;
       setLoading(true);
       setError(null);
 
