@@ -4,12 +4,14 @@ const API_URL = 'http://localhost:8080/api/users/checarusuario';
 
 export default async function useApiChecarUsuario(token, { username }) {
     try {
-        const response = await axios.post(API_URL, 
+        const response = await axios.get(API_URL, 
             { username }, 
             {
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
+                },
+                params: {
+                    username: username
                 }
             }
         );

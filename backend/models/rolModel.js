@@ -13,5 +13,15 @@ const getRolesxUsuarios = async () => {
     }
 };
 
+const ObtenerRolporId = async (roleId) => {
+    try {
+        const sql = `SELECT nombre FROM roles WHERE id = ?`;
+        const [rows] = await db.query(sql, [roleId]);
+        return rows.length > 0 ? rows[0] : null;
+    } catch (err) {
+        throw err;
+    }
+};
 
-module.exports = { getRolesxUsuarios };
+
+module.exports = { getRolesxUsuarios, ObtenerRolporId };
