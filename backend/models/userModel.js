@@ -60,4 +60,9 @@ const login = async (username) => {
     return rows.length > 0 ? rows[0] : null; // Devuelve el usuario o null
 };
 
-module.exports = {getUsers, getTotalUsers, login};
+const checarUsuarios = async (username) => {
+    const [rows] = await db.query("SELECT * FROM usuarios WHERE username = ?", [username]);
+    return rows.length > 0;
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios};

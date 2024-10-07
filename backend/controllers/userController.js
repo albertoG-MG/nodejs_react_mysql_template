@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel');
 const userService = require('../services/login/loginService');
+const validationCheckUserService = require('../services/validacion/validationCheckUserService');
 const jwt = require('jsonwebtoken');
 
 const getUsers = async (req, res) => {
@@ -50,4 +51,27 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { getUsers, login };
+//Checa si el usuario está repetido
+const checarUsuarios = async (req, res) => {
+    const { username } = req.query;
+
+    try {
+        if (!username) {
+            return res.status(400).json({ error: "El nombre de usuario es requerido." });
+        }
+
+        const exists = await validationCheckUserService.checarUsuarios(username);
+
+        if (!exists) {
+            return res.json({ success: true, message: "Usuario disponible" });
+        }
+
+        return res.json({ success: false, message: "Usuario no disponible" });
+    } catch (error) {
+        console.error("Error en la consulta: " + error);
+        return res.status(500).json({ error: "Error en la consulta" });
+    }
+};
+
+
+module.exports = { getUsers, login, checarUsuarios };

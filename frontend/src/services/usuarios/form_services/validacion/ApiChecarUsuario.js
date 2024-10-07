@@ -4,23 +4,17 @@ const API_URL = 'http://localhost:8080/api/users/checarusuario';
 
 export default async function useApiChecarUsuario(token, { username }) {
     try {
-        const response = await axios.get(API_URL, 
-            { username }, 
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                params: {
-                    username: username
-                }
-            }
-        );
 
-        return {
-            success: true,
-            message: 'Usuario disponible.',
-            data: response.data
-        };
+        const response = await axios.get(API_URL, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            params: {
+                username: username
+            }
+        });
+
+        return response.data;
 
     } catch (error) {
         console.error('Error en la solicitud a la API:', error);
@@ -37,8 +31,7 @@ export default async function useApiChecarUsuario(token, { username }) {
 
         return {
             success: false,
-            message: errorMessage,
-            data: null
+            message: errorMessage
         };
     }
 }
