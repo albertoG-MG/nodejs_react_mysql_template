@@ -10,11 +10,18 @@ const RolesComponent = ({ onRoleSelect }) => {
 
   useEffect(() => {
     const getRoles = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const data = await fetchRoles(token);
         setRoles(data);
       } catch (error) {
-        setError(error);
+        if (error.response && error.response.status === 404) {
+          setRoles([]);
+          setError('No existen roles en la base de datos');
+        }else{
+            setError('Error al cargar roles: ' + error.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -28,8 +35,8 @@ const RolesComponent = ({ onRoleSelect }) => {
     onRoleSelect(selectedRoleId); 
   }
 
-  if (loading) return <p>Cargando roles...</p>;
-  if (error) return <p>Error al cargar roles: {error.message}</p>;
+  if (loading) return  <div className="grid grid-cols-1 bg-slate-100 rounded-md p-4 mt-5 mx-7"><p>Cargando roles...</p></div>;            
+  if (error) return <div className="grid grid-cols-1 bg-slate-100 rounded-md p-4 mt-5 mx-7"><p>{ error }</p></div>;    
 
   return (
     <div className="grid grid-cols-1 mt-5 mx-7">
