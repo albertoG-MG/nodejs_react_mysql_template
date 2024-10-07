@@ -40,7 +40,7 @@ const RolesComponent = ({ onRoleSelect }) => {
 
   return (
     <div className="grid grid-cols-1 mt-5 mx-7">
-        <label className="text-[#64748b] font-semibold mb-2">Rol</label>
+        <label className="text-[#64748b] font-semibold mb-2">Escoge un rol</label>
         <div className="group flex">
             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                 <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24">

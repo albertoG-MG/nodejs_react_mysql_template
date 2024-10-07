@@ -202,7 +202,7 @@ export default function Crearusuario() {
             <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Crear Usuario</h1>
             <form onSubmit={manejarEnvio}>
                 <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Ingrese su usuario</label>
+                    <label className="text-[#64748b] font-semibold mb-2">Ingrese el usuario</label>
                     <div className="group flex">
                         <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
                             <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
@@ -222,7 +222,7 @@ export default function Crearusuario() {
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Ingrese su contraseña</label>
+                    <label className="text-[#64748b] font-semibold mb-2">Ingrese la contraseña</label>
                     <div className="group flex">
                         <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
                             <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
@@ -242,7 +242,7 @@ export default function Crearusuario() {
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Confirma tu contraseña</label>
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa la confirmación de la contraseña</label>
                     <div className="group flex">
                         <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
                             <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
@@ -262,7 +262,7 @@ export default function Crearusuario() {
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Nombre</label>
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa el nombre</label>
                     <div className="group flex">
                         <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
                             <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
@@ -282,7 +282,7 @@ export default function Crearusuario() {
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Apellido Paterno</label>
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa el apellido paterno</label>
                     <div className="group flex">
                         <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
                             <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
@@ -302,7 +302,7 @@ export default function Crearusuario() {
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Apellido Materno</label>
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa el apellido materno</label>
                     <div className="group flex">
                         <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
                             <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
@@ -322,7 +322,7 @@ export default function Crearusuario() {
                 </div>
 
                 <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Correo Electrónico</label>
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa el correo electrónico</label>
                     <div className="group flex">
                         <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
                             <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
@@ -344,7 +344,7 @@ export default function Crearusuario() {
                 <ObtenerSubRoles selectedRoleId={selectedRoleId} />
                 <ObtenerDepartamentos selectedRoleId={selectedRoleId} />
                 <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Foto de Perfil</label>
+                    <label className="text-[#64748b] font-semibold mb-2">Foto de Perfil (opcional)</label>
                     <input
                         type="file"
                         name="foto"
