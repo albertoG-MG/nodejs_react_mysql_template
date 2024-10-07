@@ -3,6 +3,7 @@ import useApiChecarUsuario from "../../services/usuarios/crear_usuarios/validaci
 import useApiChecarPassword from "../../services/usuarios/crear_usuarios/validacion/ApiChecarPassword";
 import useApiChecarCorreo from "../../services/usuarios/crear_usuarios/validacion/ApiChecarCorreo";
 import ObtenerRoles from '../../components/crear_usuarios/ObtenerRoles';
+import ObtenerSubRoles from '../../components/crear_usuarios/ObtenerSubRoles';
 
 export default function Crearusuario() {
     // Definición de cada uno de los campos del formulario
@@ -22,6 +23,14 @@ export default function Crearusuario() {
 
     // Definición del estado de los campos, si contiene errores o no.
     const [Errores, setErrores] = useState({});
+
+    //Guarda el rol seleccionado
+    const [selectedRoleId, setSelectedRoleId] = useState('');
+
+    //Función que actualiza el rol
+    const handleRoleSelect = (roleId) => {
+        setSelectedRoleId(roleId);
+    };
 
     // Función que actualiza el estado de los campos en tiempo real
     const manejarCambio = async (e) => {
@@ -330,7 +339,8 @@ export default function Crearusuario() {
                     </div>
                     {Errores.correo && <p className="text-red-500">{Errores.correo}</p>}
                 </div>
-                <ObtenerRoles />
+                <ObtenerRoles onRoleSelect={handleRoleSelect}/>
+                <ObtenerSubRoles selectedRoleId={selectedRoleId} />
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Foto de Perfil</label>
                     <input

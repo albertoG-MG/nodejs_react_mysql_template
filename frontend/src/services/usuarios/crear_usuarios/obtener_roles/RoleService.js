@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Define la URL de tu API
 const API_URL = 'http://localhost:8080/api/roles/getrolesxusuarios';
 
 export const fetchRoles = async (token) => {
