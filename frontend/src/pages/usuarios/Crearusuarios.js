@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef  } from 'react';
 import useApiChecarUsuario from "../../services/usuarios/form_services/validacion/ApiChecarUsuario";
 import useApiChecarPassword from "../../services/usuarios/form_services/validacion/ApiChecarPassword";
 import useApiChecarCorreo from "../../services/usuarios/form_services/validacion/ApiChecarCorreo";
@@ -30,6 +30,9 @@ export default function Crearusuario() {
 
     //Estado para las imágenes
     const [imagePreview, setImagePreview] = useState(null);
+
+    //Función debounce personalizada
+    const debounceRef = useRef(null);
 
     //Función que actualiza el rol
     const handleRoleSelect = (roleId) => {
@@ -91,14 +94,8 @@ export default function Crearusuario() {
             const token = localStorage.getItem('token');
             try {
                 if (name === 'username') {
-                    // Verifica si el nombre de usuario ya existe
-                    const { success, message } = await useApiChecarUsuario(token, { username: value });
-
-                    if (!success) {
-                        setErrores((prev) => ({ ...prev, username: message }));
-                    } else {
-                        setErrores((prev) => ({ ...prev, username: '' }));
-                    }
+                    clearTimeout(debounceRef.current);
+                    debounceRef.current = setTimeout(() => verificarUsuario(value), 500);
 
                 } else if (name === 'password') {
                     // Verifica si la contraseña está en la blacklist
@@ -125,6 +122,21 @@ export default function Crearusuario() {
             }
         }
     };
+
+    const verificarUsuario = async (username) => {
+        const token = localStorage.getItem('token');
+        try {
+            const { success, message } = await useApiChecarUsuario(token, { username });
+            setErrores((prev) => ({ ...prev, username: success ? '' : message }));
+        } catch (err) {
+            console.error('Error en la llamada a la API:', err);
+            setErrores((prev) => ({ ...prev, username: '' })); // Limpiar errores en caso de error
+        }
+    };
+
+    useEffect(() => {
+        return () => clearTimeout(debounceRef.current);
+    }, []);
 
     const validar = (Campos) => {
         const errores = {};
