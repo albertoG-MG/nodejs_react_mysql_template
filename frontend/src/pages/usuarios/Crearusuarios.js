@@ -89,7 +89,7 @@ export default function Crearusuario() {
                 [name]: value
             }));
 
-            const errores = validar({ ...Campos, [name]: value });
+            const errores = validar({ ...Campos, [name]: value }, name);
             setErrores(errores);
             
 
@@ -168,60 +168,74 @@ export default function Crearusuario() {
         return () => clearTimeout(debounceRef.current);
     }, []);
 
-    const validar = (Campos) => {
+    const validar = (Campos, campo = "", esEnvio = false) => {
         const errores = {};
     
         // Validar el usuario
-        if (!Campos.username) {
-            errores.username = 'El usuario es requerido.';
-        } else if (Campos.username.length < 5) {
-            errores.username = 'El usuario debe de tener como mínimo 5 caracteres.';
-        } else if (!/^(?=[a-zA-Z0-9._]{4,30}$)(?!.*[_.]{2})[^_.].*[^_.]$/.test(Campos.username)) {
-            errores.username = 'El usuario debe de tener entre 4 y 30 caracteres, sin puntos o guiones bajos consecutivos, y no puede empezar o terminar con un punto o guion bajo.';
+        if(campo === "username" || esEnvio){
+            if (!Campos.username) {
+                errores.username = 'El usuario es requerido.';
+            } else if (Campos.username && Campos.username.length < 5) {
+                errores.username = 'El usuario debe de tener como mínimo 5 caracteres.';
+            } else if (!/^(?=[a-zA-Z0-9._]{4,30}$)(?!.*[_.]{2})[^_.].*[^_.]$/.test(Campos.username)) {
+                errores.username = 'El usuario debe de tener entre 4 y 30 caracteres, sin puntos o guiones bajos consecutivos, y no puede empezar o terminar con un punto o guion bajo.';
+            }
         }
     
         // Validar la contraseña
-        if (!Campos.password) {
-            errores.password = 'La contraseña es requerida.';
-        } else if (Campos.password.length < 8) {
-            errores.password = 'La contraseña debe de tener como mínimo 8 caracteres.';
-        } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&*])[a-zA-Z0-9!@#$%&*]+$/.test(Campos.password)) {
-            errores.password = 'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (!@#$%&*).';
+        if(campo === "password" || esEnvio){
+            if (!Campos.password) {
+                errores.password = 'La contraseña es requerida.';
+            } else if (Campos.password && Campos.password.length < 8) {
+                errores.password = 'La contraseña debe de tener como mínimo 8 caracteres.';
+            } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&*])[a-zA-Z0-9!@#$%&*]+$/.test(Campos.password)) {
+                errores.password = 'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (!@#$%&*).';
+            }
         }
     
         // Validar confirmación de contraseña
-        if (!Campos.confirmpassword) {
-            errores.confirmpassword = 'La confirmación de la contraseña es requerida.';
-        } else if (Campos.password !== Campos.confirmpassword) {
-            errores.confirmpassword = 'La confirmación de la contraseña debe ser igual a la contraseña.';
+        if(campo === "confirmpassword" || esEnvio){
+            if (!Campos.confirmpassword) {
+                errores.confirmpassword = 'La confirmación de la contraseña es requerida.';
+            } else if (Campos.password !== Campos.confirmpassword) {
+                errores.confirmpassword = 'La confirmación de la contraseña debe ser igual a la contraseña.';
+            }
         }
     
         // Validar nombre
-        if (!Campos.nombre) {
-            errores.nombre = 'El nombre es requerido.';
-        } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.nombre)) {
-            errores.nombre = 'El nombre solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+        if(campo === "nombre" || esEnvio){
+            if (!Campos.nombre) {
+                errores.nombre = 'El nombre es requerido.';
+            } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.nombre)) {
+                errores.nombre = 'El nombre solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+            }
         }
     
         // Validar apellido paterno
-        if (!Campos.apellido_pat) {
-            errores.apellido_pat = 'El apellido paterno es requerido.';
-        } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.apellido_pat)) {
-            errores.apellido_pat = 'El apellido paterno solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+        if(campo === "apellido_pat" || esEnvio){
+            if (!Campos.apellido_pat) {
+                errores.apellido_pat = 'El apellido paterno es requerido.';
+            } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.apellido_pat)) {
+                errores.apellido_pat = 'El apellido paterno solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+            }
         }
     
         // Validar apellido materno
-        if (!Campos.apellido_mat) {
-            errores.apellido_mat = 'El apellido materno es requerido.';
-        } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.apellido_mat)) {
-            errores.apellido_mat = 'El apellido materno solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+        if(campo === "apellido_pat" || esEnvio){
+            if (!Campos.apellido_mat) {
+                errores.apellido_mat = 'El apellido materno es requerido.';
+            } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.apellido_mat)) {
+                errores.apellido_mat = 'El apellido materno solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+            }
         }
     
         // Validar correo
-        if (!Campos.correo) {
-            errores.correo = 'El correo es requerido.';
-        } else if (!/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i.test(Campos.correo)) {
-            errores.correo = 'Formato de correo electrónico no válido. Por favor, introduce una dirección de correo electrónico válida.';
+        if(campo === "correo" || esEnvio){
+            if (!Campos.correo) {
+                errores.correo = 'El correo es requerido.';
+            } else if (!/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i.test(Campos.correo)) {
+                errores.correo = 'Formato de correo electrónico no válido. Por favor, introduce una dirección de correo electrónico válida.';
+            }
         }
     
         return errores;
@@ -230,13 +244,18 @@ export default function Crearusuario() {
     const manejarEnvio = (e) => {
         e.preventDefault();
 
-        const errores = validar(Campos);
-        setErrores(errores);
+        const erroresEnTiempoReal = { ...Errores };
+        const erroresDeEnvio = validar(Campos, "", true);
 
-        if (Object.keys(errores).length === 0) {
+        const erroresCombinados = { ...erroresEnTiempoReal, ...erroresDeEnvio };
+        setErrores(erroresCombinados);
+
+        if (Object.keys(erroresCombinados ).length === 0) {
             console.log('Formulario enviado con éxito', Campos);
             setCargandoform(true);
 
+        } else {
+            console.log('Hay errores en el formulario', erroresCombinados);
         }
     };
 
