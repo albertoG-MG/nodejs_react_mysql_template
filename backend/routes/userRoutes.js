@@ -7,5 +7,6 @@ router.post("/login", userController.login);
 router.get("/getusers", authMiddleware, userController.getUsers);
 router.get("/checarusuario", authMiddleware, userController.checarUsuarios);
 router.get("/checarpassword", authMiddleware, userController.checarPassword);
+router.get("/checarcorreo", authMiddleware, userController.checarCorreo);
 
 module.exports = router;

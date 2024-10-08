@@ -70,4 +70,9 @@ const checarblacklisted = async () => {
     return rows;
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted};
+const checarCorreo = async (correo) => {
+    const [rows] = await db.query("SELECT correo  FROM usuarios WHERE correo = ? UNION ALL SELECT correo_adicional FROM expedientes WHERE correo_adicional = ?", [correo, correo]);
+    return rows.length > 0 ? true : false;
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo};

@@ -2,6 +2,7 @@ const userModel = require('../models/userModel');
 const userService = require('../services/login/loginService');
 const validationCheckUserService = require('../services/validacion/validationCheckUserService');
 const validationCheckPassword = require('../services/validacion/validationCheckPassword');
+const validationCheckCorreo = require('../services/validacion/validationCheckCorreo');
 const jwt = require('jsonwebtoken');
 
 const getUsers = async (req, res) => {
@@ -97,5 +98,22 @@ const checarPassword = async (req, res) => {
     }
 }
 
+const checarCorreo = async (req, res) => {
+    const { correo } = req.query;
 
-module.exports = { getUsers, login, checarUsuarios, checarPassword };
+    try{
+        const correo_user = await validationCheckCorreo.checarCorreo(correo);
+
+        if(!correo_user){
+            return res.json({ success: true, message: "Correo disponible." });
+        }
+
+        return res.json({ success: false, message: "Este correo está repetido; por favor, escoga otro."  });
+    }catch(error){
+        console.error("Error en la consulta: " +error);
+        return res.status(500).json({ error: "Error en la consulta" });
+    }
+}
+
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo };

@@ -4,22 +4,18 @@ const API_URL = 'http://localhost:8080/api/users/checarcorreo';
 
 export default async function useApiChecarCorreo(token, { correo }) {
     try {
-        const response = await axios.post(API_URL, 
-            { correo }, 
+        const response = await axios.get(API_URL, 
             {
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
+                },
+                params: {
+                    correo: correo
                 }
             }
         );
 
-        return {
-            success: true,
-            message: 'Correo válido.',
-            data: response.data
-        };
-
+        return response.data;
     } catch (error) {
         console.error('Error en la solicitud a la API:', error);
 
@@ -39,8 +35,8 @@ export default async function useApiChecarCorreo(token, { correo }) {
 
         return {
             success: false,
-            message: errorMessage,
-            data: null
+            message: errorMessage
         };
     }
 }
+

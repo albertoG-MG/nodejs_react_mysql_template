@@ -101,14 +101,8 @@ export default function Crearusuario() {
                     clearTimeout(debounceRef.current);
                     debounceRef.current = setTimeout(() => verificarPassword(value), 500);
                 } else if (name === 'correo') {
-                    // Verifica si el correo está repetido
-                    const { success, message } = await useApiChecarCorreo(token, { correo: value });
-
-                    if (!success) {
-                        setErrores((prev) => ({ ...prev, correo: message }));
-                    } else {
-                        setErrores((prev) => ({ ...prev, correo: '' }));
-                    }
+                    clearTimeout(debounceRef.current);
+                    debounceRef.current = setTimeout(() => verificarCorreo(value), 500);
                 }
             } catch (err) {
                 console.error('Error en la llamada a la API:', err);
@@ -136,6 +130,17 @@ export default function Crearusuario() {
         } catch (err) {
             console.error('Error en la llamada a la API:', err);
             setErrores((prev) => ({ ...prev, password: '' })); // Limpiar errores en caso de error
+        }
+    };
+
+    const verificarCorreo = async (correo) => {
+        const token = localStorage.getItem('token');
+        try {
+            const { success, message } = await useApiChecarCorreo(token, { correo });
+            setErrores((prev) => ({ ...prev, correo: success ? '' : message }));
+        } catch (err) {
+            console.error('Error en la llamada a la API:', err);
+            setErrores((prev) => ({ ...prev, correo: '' })); // Limpiar errores en caso de error
         }
     };
 
