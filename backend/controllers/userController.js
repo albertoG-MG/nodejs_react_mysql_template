@@ -1,6 +1,7 @@
 const userModel = require('../models/userModel');
 const userService = require('../services/login/loginService');
 const validationCheckUserService = require('../services/validacion/validationCheckUserService');
+const validationCheckPassword = require('../services/validacion/validationCheckPassword');
 const jwt = require('jsonwebtoken');
 
 const getUsers = async (req, res) => {
@@ -73,5 +74,28 @@ const checarUsuarios = async (req, res) => {
     }
 };
 
+const checarPassword = async (req, res) => {
+    const { password } = req.query;
 
-module.exports = { getUsers, login, checarUsuarios };
+    try {
+        const blacklistedPassword = await validationCheckPassword.checarPassword(password);
+
+        if (blacklistedPassword) {
+            return res.json({ 
+                success: false, 
+                message: `La contraseña está en la lista negra, contiene "${blacklistedPassword}", prueba con otra contraseña.` 
+            });
+        }
+
+        return res.json({ 
+            success: true, 
+            message: "La contraseña no está en la lista negra." 
+        });
+    } catch (error) {
+        console.error("Error en la consulta: " + error);
+        return res.status(500).json({ error: "Error en la consulta" });
+    }
+}
+
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword };

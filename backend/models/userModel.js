@@ -65,4 +65,9 @@ const checarUsuarios = async (username) => {
     return rows.length > 0;
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios};
+const checarblacklisted = async () => {
+    const [rows] = await db.query("SELECT password FROM blacklist_password");
+    return rows;
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted};

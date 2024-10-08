@@ -4,22 +4,18 @@ const API_URL = 'http://localhost:8080/api/users/checarpassword';
 
 export default async function useApiChecarPassword(token, { password }) {
     try {
-        const response = await axios.post(API_URL, 
-            { password }, 
+        const response = await axios.get(API_URL, 
             {
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
+                },
+                params: {
+                    password: password
                 }
             }
         );
 
-        return {
-            success: true,
-            message: 'Contraseña válida.',
-            data: response.data
-        };
-
+        return response.data;
     } catch (error) {
         console.error('Error en la solicitud a la API:', error);
 
@@ -39,8 +35,7 @@ export default async function useApiChecarPassword(token, { password }) {
 
         return {
             success: false,
-            message: errorMessage,
-            data: null
+            message: errorMessage
         };
     }
 }
