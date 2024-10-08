@@ -98,14 +98,8 @@ export default function Crearusuario() {
                     debounceRef.current = setTimeout(() => verificarUsuario(value), 500);
 
                 } else if (name === 'password') {
-                    // Verifica si la contraseña está en la blacklist
-                    const { success, message } = await useApiChecarPassword(token, { password: value });
-
-                    if (!success) {
-                        setErrores((prev) => ({ ...prev, password: message }));
-                    } else {
-                        setErrores((prev) => ({ ...prev, password: '' }));
-                    }
+                    clearTimeout(debounceRef.current);
+                    debounceRef.current = setTimeout(() => verificarPassword(value), 500);
                 } else if (name === 'correo') {
                     // Verifica si el correo está repetido
                     const { success, message } = await useApiChecarCorreo(token, { correo: value });
@@ -131,6 +125,17 @@ export default function Crearusuario() {
         } catch (err) {
             console.error('Error en la llamada a la API:', err);
             setErrores((prev) => ({ ...prev, username: '' })); // Limpiar errores en caso de error
+        }
+    };
+
+    const verificarPassword = async (password) => {
+        const token = localStorage.getItem('token');
+        try {
+            const { success, message } = await useApiChecarPassword(token, { password });
+            setErrores((prev) => ({ ...prev, password: success ? '' : message }));
+        } catch (err) {
+            console.error('Error en la llamada a la API:', err);
+            setErrores((prev) => ({ ...prev, password: '' })); // Limpiar errores en caso de error
         }
     };
 
