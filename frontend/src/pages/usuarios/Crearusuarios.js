@@ -89,9 +89,17 @@ export default function Crearusuario() {
                 [name]: value
             }));
 
-            const errores = validar({ ...Campos, [name]: value }, name);
-            setErrores(errores);
-            
+            const erroresActuales = { ...Errores };
+
+            const nuevoError = validar({ ...Campos, [name]: value }, name);
+
+            if (nuevoError[name]) {
+                erroresActuales[name] = nuevoError[name];
+            } else {
+                erroresActuales[name] = ''; 
+            }
+
+            setErrores(erroresActuales);
 
             const token = localStorage.getItem('token');
             try {
