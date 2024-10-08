@@ -117,10 +117,16 @@ export default function Crearusuario() {
         const token = localStorage.getItem('token');
         try {
             const { success, message } = await useApiChecarUsuario(token, { username });
-            setErrores((prev) => ({ ...prev, username: success ? '' : message }));
+            setErrores((prev) => ({
+                ...prev,
+                username: success ? prev.username : message
+            }));
         } catch (err) {
             console.error('Error en la llamada a la API:', err);
-            setErrores((prev) => ({ ...prev, username: '' })); // Limpiar errores en caso de error
+            setErrores((prev) => ({
+                ...prev,
+                username: prev.username || 'Error al verificar el usuario. Inténtalo nuevamente.'
+            }));
         }
     };
 
@@ -128,10 +134,16 @@ export default function Crearusuario() {
         const token = localStorage.getItem('token');
         try {
             const { success, message } = await useApiChecarPassword(token, { password });
-            setErrores((prev) => ({ ...prev, password: success ? '' : message }));
+            setErrores((prev) => ({
+                ...prev,
+                password: success ? prev.password : message
+            }));
         } catch (err) {
             console.error('Error en la llamada a la API:', err);
-            setErrores((prev) => ({ ...prev, password: '' })); // Limpiar errores en caso de error
+            setErrores((prev) => ({
+                ...prev,
+                password: prev.password || 'Error al verificar la contraseña. Inténtalo nuevamente.'
+            }));
         }
     };
 
@@ -139,10 +151,16 @@ export default function Crearusuario() {
         const token = localStorage.getItem('token');
         try {
             const { success, message } = await useApiChecarCorreo(token, { correo });
-            setErrores((prev) => ({ ...prev, correo: success ? '' : message }));
+            setErrores((prev) => ({
+                ...prev,
+                correo: success ? prev.correo : message
+            }));
         } catch (err) {
             console.error('Error en la llamada a la API:', err);
-            setErrores((prev) => ({ ...prev, correo: '' })); // Limpiar errores en caso de error
+            setErrores((prev) => ({
+                ...prev,
+                correo: prev.correo || 'Error al verificar el correo. Inténtalo nuevamente.'
+            }));
         }
     };
 
