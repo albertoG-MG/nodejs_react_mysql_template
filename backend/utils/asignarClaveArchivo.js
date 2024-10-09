@@ -22,3 +22,5 @@ function tempnamSfx(directory, suffix) {
     fs.closeSync(fp);
     return file;
 }
+
+module.exports = { tempnamSfx };

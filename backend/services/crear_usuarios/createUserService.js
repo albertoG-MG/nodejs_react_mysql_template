@@ -1,7 +1,7 @@
 const fs = require('fs');
 const userModel = require("../../models/userModel");
-const { asignarClaveArchivo } = require('../../utils/asignarClaveArchivo');
-const { hash } = require('../../services/login/loginService');
+const { tempnamSfx } = require('../../utils/asignarClaveArchivo');
+const { hashPassword } = require('../../services/login/loginService');
 const path = require('path');
 
 const crearUsuario = async (formData, foto) => {
@@ -9,7 +9,7 @@ const crearUsuario = async (formData, foto) => {
 
     try {
         // Hashear la contraseña antes de guardarla
-        const hashedPassword = hash.hashPassword(password);
+        const hashedPassword = hashPassword(password);
         let fotoNombre = null;
 
         // Manejo de la foto
@@ -22,7 +22,7 @@ const crearUsuario = async (formData, foto) => {
             }
 
             // Generar un nombre único para la foto
-            fotoNombre = asignarClaveArchivo.tempnamSfx(location, ext);
+            fotoNombre = tempnamSfx(location, ext);
             const fotoPath = path.join(location, fotoNombre);
 
             // Mover el archivo a la nueva ubicación

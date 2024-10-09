@@ -96,10 +96,12 @@ const validateUserData = async (req, res, next) => {
             const obtener_roles = await rolModel.getRolesxUsuarios();
 
             if(obtener_roles.length > 0){
+                Campos.rol = Number(Campos.rol);
                 const rolEncontrado = obtener_roles.find(rol => rol.id === Campos.rol);
                 if(!rolEncontrado){
                     errores.rol = 'El rol no existe';
                 }
+                req.body.rol = Campos.rol;
             }else{
                 errores.rol = 'No hay roles registrados en el sistema';
             }
@@ -112,10 +114,12 @@ const validateUserData = async (req, res, next) => {
             try{
                 const check_subrol = await subrolModel.getSubrolesxRolxUsuarios(Campos.rol);
                 if(check_subrol.length > 0){
+                    Campos.subrol = Number(Campos.subrol);
                     const subrolEncontrado = check_subrol.find(subrol => subrol.id === Campos.subrol);
                     if(!subrolEncontrado){
                         errores.subrol = 'Este subrol no está registrado en el sistema';
                     }
+                    req.body.subrol = Campos.subrol;
                 }
             }catch(error){
                 console.error("Problemas al realizar la consulta para el subrol" +error);
@@ -127,10 +131,12 @@ const validateUserData = async (req, res, next) => {
             try{
                 const get_departamento = departamentos_service.getDepartamentoxRolxUsuarios(Campos.rol);
                 if(get_departamento.length > 0){
+                    Campos.departamento = Number(Campos.departamento);
                     const departamentoEncontrado = get_departamento.find(departamento => departamento.id === Campos.departamento);
                     if(!departamentoEncontrado){
                         errores.departamento = 'Este departamento no está registrado en el sistema';
                     }
+                    req.body.departamento = Campos.departamento;
                 }else{
                     req.body.departamento = null;
                 }
