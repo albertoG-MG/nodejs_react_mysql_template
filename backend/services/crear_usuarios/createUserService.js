@@ -50,12 +50,12 @@ const crearUsuario = async (formData, foto) => {
             rol,
             subrol,
             departamento,
-            nombre_archivo: foto.originalname || null,
+            nombre_archivo: foto ? foto.originalname : null,
             foto: fotoNombre || null // Si no hay foto, se guarda como null
         };
 
         // Guardar en la base de datos
-        const resultado = await userModel.guardarUsuarioEnBaseDeDatos(nuevoUsuario);
+        const resultado = await userModel.crearUsuario(nuevoUsuario);
         return resultado;
     } catch (error) {
         console.error("Error al guardar el usuario:", error);
