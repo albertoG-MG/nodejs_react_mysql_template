@@ -75,4 +75,16 @@ const checarCorreo = async (correo) => {
     return rows.length > 0 ? true : false;
 }
 
+const crearUsuario = async(nuevousuario) => {
+    const { username, password, nombre, apellido_pat, apellido_mat, correo, departamento_id, roles_id, subrol_id, nombre_archivo, foto } = nuevousuario;
+
+    const [result] = await db.query(
+        `INSERT INTO usuarios (username, password, nombre, apellido_pat, apellido_mat, correo, departamento_id, roles_id, subrol_id, nombre_foto, foto_identificador) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [username, password, nombre, apellido_pat, apellido_mat, correo, departamento_id, roles_id, subrol_id, nombre_archivo, foto]
+    );
+
+    return result.affectedRows > 0;
+}
+
 module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo};

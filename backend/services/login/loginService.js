@@ -24,4 +24,4 @@ const login = async (username, password) => {
     return user; // Credenciales válidas
 };
 
-module.exports = { login };
+module.exports = { login, hashPassword };
