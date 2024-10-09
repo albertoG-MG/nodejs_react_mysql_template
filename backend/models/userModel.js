@@ -87,4 +87,4 @@ const crearUsuario = async(nuevousuario) => {
     return result.affectedRows > 0;
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo};
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario};
