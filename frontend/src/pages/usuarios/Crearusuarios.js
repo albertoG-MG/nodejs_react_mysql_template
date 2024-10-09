@@ -5,6 +5,9 @@ import useApiChecarCorreo from "../../services/usuarios/form_services/validacion
 import ObtenerRoles from '../../components/form_components/ObtenerRoles';
 import ObtenerSubRoles from '../../components/form_components/ObtenerSubRoles';
 import ObtenerDepartamentos from '../../components/form_components/ObtenerDepartamentos';
+import useApiCrearUsuario from "../../services/usuarios/useApiCrearUsuario";
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function Crearusuario() {
     // Definición de cada uno de los campos del formulario
@@ -37,9 +40,32 @@ export default function Crearusuario() {
     //Función que actualiza el rol
     const handleRoleSelect = (roleId) => {
         setSelectedRoleId(roleId);
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            rol: roleId
+        }));
+    };
+
+    //Función que actualiza el subrol
+    const handleSubrolSelect = (subrolId) => {
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            subrol: subrolId
+        }));
+    };
+
+    //Función que actualiza el departamento
+    const handleDepartamentoSelect = (departamentoId) => {
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            departamento: departamentoId
+        }));
     };
 
     const [cargandoform, setCargandoform] = useState(false);
+
+    //Para navegar entre rutas
+    const navigate = useNavigate();
 
     // Función que actualiza el estado de los campos en tiempo real
     const manejarCambio = async (e) => {
@@ -101,7 +127,6 @@ export default function Crearusuario() {
 
             setErrores(erroresActuales);
 
-            const token = localStorage.getItem('token');
             try {
                 if (name === 'username') {
                     clearTimeout(debounceRef.current);
@@ -249,7 +274,7 @@ export default function Crearusuario() {
         return errores;
     };
 
-    const manejarEnvio = (e) => {
+    const manejarEnvio = async (e) => {
         e.preventDefault();
 
         const erroresEnTiempoReal = { ...Errores };
@@ -258,12 +283,55 @@ export default function Crearusuario() {
         const erroresCombinados = { ...erroresEnTiempoReal, ...erroresDeEnvio };
         setErrores(erroresCombinados);
 
-        if (Object.keys(erroresCombinados ).length === 0) {
+        const erroresFiltrados = Object.fromEntries(
+            Object.entries(erroresCombinados).filter(([_, value]) => value)
+        );
+
+        if (Object.keys(erroresFiltrados).length === 0) {
             console.log('Formulario enviado con éxito', Campos);
             setCargandoform(true);
 
+            const formData = new FormData();
+            for (const [key, value] of Object.entries(Campos)) {
+                formData.append(key, value);
+            }
+
+            const token = localStorage.getItem('token');
+            try {
+                const { success, message } = await useApiCrearUsuario(token, { formData });
+                if(success){
+                    const result = await Swal.fire({
+                        title: '¡Éxito!',
+                        text: message,
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    });
+            
+                    if (result.isConfirmed) {
+                        navigate('usuarios/consulta');
+                    }
+                }else{
+                    Swal.fire({
+                        title: 'Error',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            } catch (err) {
+                console.error('Error en la llamada a la API:', err);
+                Swal.fire({
+                    title: 'Error',
+                    text: message,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            } finally {
+                setCargandoform(false); // Restablecer el estado de carga al finalizar
+            }
+
         } else {
-            console.log('Hay errores en el formulario', erroresCombinados);
+            console.log('Hay errores en el formulario', erroresFiltrados);
         }
     };
 
@@ -411,8 +479,8 @@ export default function Crearusuario() {
                     {Errores.correo && <p className="text-red-500">{Errores.correo}</p>}
                 </div>
                 <ObtenerRoles onRoleSelect={handleRoleSelect}/>
-                <ObtenerSubRoles selectedRoleId={selectedRoleId} />
-                <ObtenerDepartamentos selectedRoleId={selectedRoleId} />
+                <ObtenerSubRoles onSubrolSelect={handleSubrolSelect} selectedRoleId={selectedRoleId} />
+                <ObtenerDepartamentos onDepartamentoSelect={handleDepartamentoSelect} selectedRoleId={selectedRoleId} />
                 {imagePreview && (
                     <div className="grid grid-cols-1 mt-5 mx-7">
                         <h3>Previsualización de la imagen:</h3>

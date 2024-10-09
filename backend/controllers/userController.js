@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel');
 const userService = require('../services/login/loginService');
+const createUserService = require('../services/crear_usuarios/createUserService');
 const validationCheckUserService = require('../services/validacion/validationCheckUserService');
 const validationCheckPassword = require('../services/validacion/validationCheckPassword');
 const validationCheckCorreo = require('../services/validacion/validationCheckCorreo');
@@ -115,5 +116,24 @@ const checarCorreo = async (req, res) => {
     }
 }
 
+const crearUsuario = async (req, res) => {
+    const formData  = req.body;
+    const foto = req.file; 
 
-module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo };
+    try{
+        const usuario_creado = await createUserService.crearUsuario(formData, foto);
+
+        if(usuario_creado){
+            console.log("Usuario creado exitósamente");
+            return res.json({ success: true, message: "Usuario creado exitósamente"  });
+        }else{
+            console.error("Error al crear usuario");
+            return res.json({ success: false, message: "Error al crear usuario"  });
+        }
+    }catch(error){
+        console.error("Error en la API de crear usuario" +error);
+        return res.status(500).json({ error: "Error en la API de crear usuario"  });
+    }
+}
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario };
