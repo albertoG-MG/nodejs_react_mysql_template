@@ -76,12 +76,12 @@ const checarCorreo = async (correo) => {
 }
 
 const crearUsuario = async(nuevousuario) => {
-    const { username, password, nombre, apellido_pat, apellido_mat, correo, departamento_id, roles_id, subrol_id, nombre_archivo, foto } = nuevousuario;
+    const { username, password, nombre, apellido_pat, apellido_mat, correo, departamento, rol, subrol, nombre_archivo, foto } = nuevousuario;
 
     const [result] = await db.query(
         `INSERT INTO usuarios (username, password, nombre, apellido_pat, apellido_mat, correo, departamento_id, roles_id, subrol_id, nombre_foto, foto_identificador) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [username, password, nombre, apellido_pat, apellido_mat, correo, departamento_id, roles_id, subrol_id, nombre_archivo, foto]
+        [username, password, nombre, apellido_pat, apellido_mat, correo, departamento, rol, subrol, nombre_archivo, foto]
     );
 
     return result.affectedRows > 0;

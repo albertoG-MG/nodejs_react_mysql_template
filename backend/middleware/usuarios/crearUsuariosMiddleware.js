@@ -129,7 +129,7 @@ const validateUserData = async (req, res, next) => {
 
         if(Campos.departamento){
             try{
-                const get_departamento = departamentos_service.getDepartamentoxRolxUsuarios(Campos.rol);
+                const get_departamento = await departamentos_service.getDepartamentoxRolxUsuarios(Campos.rol);
                 if(get_departamento.length > 0){
                     Campos.departamento = Number(Campos.departamento);
                     const departamentoEncontrado = get_departamento.find(departamento => departamento.id === Campos.departamento);
