@@ -125,6 +125,8 @@ const validateUserData = async (req, res, next) => {
                 console.error("Problemas al realizar la consulta para el subrol" +error);
                 return res.status(400).json({ success: false, error});
             }
+        }else{
+            req.body.subrol = null;
         }
 
         if(Campos.departamento){
@@ -145,7 +147,13 @@ const validateUserData = async (req, res, next) => {
                 return res.status(400).json({ success: false, error});
             }
 
+        }else{
+            req.body.departamento = null;
         }
+    }else{
+        req.body.rol = null;
+        req.body.subrol = null;
+        req.body.departamento = null;
     }
 
     // Validar la foto
