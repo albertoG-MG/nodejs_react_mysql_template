@@ -7,7 +7,7 @@ function tempnamSfx(directory, suffix) {
 
     do {
         // Generar un nombre de archivo aleatorio
-        file = path.join(directory, `${Math.floor(Math.random() * 1000000)}.${suffix}`);
+        file = path.join(directory, `${Math.floor(Math.random() * 1000000)}${suffix}`);
 
         try {
             // Intentar abrir el archivo en modo exclusivo
