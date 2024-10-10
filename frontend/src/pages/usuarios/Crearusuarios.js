@@ -308,7 +308,7 @@ export default function Crearusuario() {
                     });
             
                     if (result.isConfirmed) {
-                        navigate('usuarios/consulta');
+                        navigate('/usuarios/consulta');
                     }
                 }else{
                     Swal.fire({
