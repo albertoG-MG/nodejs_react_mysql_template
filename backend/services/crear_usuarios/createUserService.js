@@ -27,7 +27,7 @@ const crearUsuario = async (formData, foto) => {
 
             // Mover el archivo a la nueva ubicación
             await new Promise((resolve, reject) => {
-                fs.rename(foto.path, fotoPath, (err) => {
+                fs.writeFile(fotoPath, foto.buffer, (err) => {
                     if (err) {
                         return reject(new Error("No se pudo mover la foto a la ubicación seleccionada: " + err.message));
                     }

@@ -20,7 +20,8 @@ function tempnamSfx(directory, suffix) {
 
     // Cerrar el archivo
     fs.closeSync(fp);
-    return file;
+    // Devuelve solo el nombre del archivo
+    return path.basename(file); // Devuelve solo el nombre del archivo
 }
 
 module.exports = { tempnamSfx };
