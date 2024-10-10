@@ -298,7 +298,7 @@ export default function Crearusuario() {
 
             const token = localStorage.getItem('token');
             try {
-                const { success, message } = await useApiCrearUsuario(token, { formData });
+                const { success, message } = await useApiCrearUsuario(token, formData);
                 if(success){
                     const result = await Swal.fire({
                         title: '¡Éxito!',
