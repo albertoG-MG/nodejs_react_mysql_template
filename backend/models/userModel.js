@@ -87,4 +87,9 @@ const crearUsuario = async(nuevousuario) => {
     return result.affectedRows > 0;
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario};
+const editarUsuario = async(id) => {
+    const [rows] = await db.query("SELECT username, nombre, apellido_pat, apellido_mat, correo, roles_id, subrol_id , departamento_id, nombre_foto, foto_identificador FROM usuarios WHERE id = ?", [id]); 
+    return rows.length > 0 ? rows[0] : null;
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario};

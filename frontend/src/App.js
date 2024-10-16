@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ConsultaUsuarios from './pages/usuarios/Consulta';
 import CrearUsuarios from './pages/usuarios/Crearusuarios';
+import EditarUsuarios from './pages/usuarios/Editarusuarios';
 import NavbarMenu from './components/NavbarMenu';
 import SidebarMenu from './components/SidebarMenu';
 
@@ -63,6 +64,7 @@ export default function App() {
                                     <Route path="/" element={<Dashboard onLogout={handleLogout} />} />
                                     <Route path="/usuarios/consulta" element={<ConsultaUsuarios />} />
                                     <Route path="/usuarios/crear" element={<CrearUsuarios />} />
+                                    <Route path="/usuarios/editar/:id" element={<EditarUsuarios />} />
                                     <Route path="*" element={<Navigate to="/" />} />
                             </Routes>
                         </div>

@@ -136,4 +136,22 @@ const crearUsuario = async (req, res) => {
     }
 }
 
-module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario };
+const editarUsuario = async (req, res) => {
+    const id = req.query;
+
+    try{
+        const getusuarioxid = await userModel.editarUsuario(id);
+
+        if(!getusuarioxid){
+            console.error("Error al obtener el usuario");
+            return res.json({ success: false, message: "Error al obtener el usuario"  });
+        }
+
+        return res.json({ success: true, message: 'Usuario obtenido con éxito', getusuarioxid});
+    }catch(error){
+        console.error("Error en la consulta para obtener el usuario" +error);
+        return res.status(500).json({ error: "Error en la consulta para obtener el usuario" });
+    }
+}
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario };
