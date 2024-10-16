@@ -9,11 +9,11 @@ export default function Consulta(){
 	const [search, setSearch] = useState('');
 
 	const cols = [
-		{ id: "id", header: "ID", enableSorting: true},
-		{ id: "nombre", header: "NOMBRE", enableSorting: true },
-		{ id: "correo", header: "CORREO", enableSorting: true },
-		{ id: "depanom", header: "DEPARTAMENTO", enableSorting: true },
-		{ id: "rolnom", header: "ROL", enableSorting: true },
+		{ id: "id", header: "ID", enableSorting: true, cell: ({ row }) => row.original.id },
+		{ id: "nombre", header: "NOMBRE", enableSorting: true, cell: ({ row }) => row.original.nombre },
+		{ id: "correo", header: "CORREO", enableSorting: true, cell: ({ row }) => row.original.correo },
+		{ id: "depanom", header: "DEPARTAMENTO", enableSorting: true, cell: ({ row }) => row.original.depanom },
+		{ id: "rolnom", header: "ROL", enableSorting: true, cell: ({ row }) => row.original.rolnom },
 		{
 		  id: "acciones",
 		  header: "ACCIONES",
@@ -25,7 +25,7 @@ export default function Consulta(){
 			</div>
 		  ),
 		},
-	  ];
+	];
 	  
 	const handleEdit = (user) => {
 		console.log('Editar usuario:', user);

@@ -22,12 +22,13 @@ import {
   }) => {
     const columns = useMemo(
       () =>
-        cols.map(({ id, header, enableSorting }) => ({
-          ...columnHelper.accessor(id, {
+        cols.map(({ id, header, enableSorting, cell }) => {
+          return columnHelper.accessor(id, {
             header,
-          }),
-          enableSorting,
-        })),
+            cell: cell ? cell : ({ row }) => row.original[id],
+            enableSorting,
+          });
+        }),
       [cols],
     );
   
