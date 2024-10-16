@@ -154,4 +154,22 @@ const editarUsuario = async (req, res) => {
     }
 }
 
-module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario };
+const checarEditUsuario = async(req, res) => {
+    const { username, id } = req.query;
+
+    try{
+        const getUsername = await userModel.checarEditUsuario(username, id);
+
+        if(!getUsername){
+            return res.json({ success: true, message: "El usuario está disponible"});
+        }
+
+        console.error("Usuario no disponible");
+        return res.json({ success: false, message: "El usuario no está disponible"  });
+    }catch(error){
+        console.error("Error en la API al obtener el usuario" +error);
+        return res.status(500).json({ error: "Error en la API al obtener el usuario" });
+    }
+}
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario };

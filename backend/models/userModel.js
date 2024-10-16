@@ -92,4 +92,9 @@ const editarUsuario = async(id) => {
     return rows.length > 0 ? rows[0] : null;
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario};
+const checarEditUsuario = async(username, id) => {
+    const [rows] = await db.query("SELECT * FROM usuarios WHERE username = ? AND id != ?", [username, id])
+    return rows.length > 0 ? true : false
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario};
