@@ -179,18 +179,29 @@ const checarEditPassword = async(req, res) => {
     try{
         const checkPassword = await validationCheckEditPassword(id, password);
 
-        if(checkPassword.sucess){
+        if(checkPassword.success){
             console.error("Hubo un error en la solicitud de la contraseña" +checkPassword.message);
-            return res.json({ success: checkPassword.sucess, message: checkPassword.message});
+            return res.json({ success: checkPassword.success, message: checkPassword.message});
         }
 
-        return res.json({ success: checkPassword.sucess, message: checkPassword.message});
+        return res.json({ success: checkPassword.success, message: checkPassword.message});
     }catch(error){
         console.error("Error en la conexión de la API" +error);
         return res.status(500).json({ error: "Error en la conexión de la API" });
     }
-
-
 }
 
-module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, checarEditPassword };
+const checarEditCorreo = async(req, res) => {
+    const { id, correo  } = req.query;
+
+    const getcorreo = await userModel.checarEditCorreo(id, correo);
+
+    if(getcorreo){
+        console.error("El correo ya existe");
+        return res.json({ success: false, message: "El correo ya existe" });
+    }
+
+    return res.json({ success: true, message: "El correo está disponible" });
+}
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, checarEditPassword, checarEditCorreo };

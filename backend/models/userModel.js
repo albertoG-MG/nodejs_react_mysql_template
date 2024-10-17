@@ -107,4 +107,9 @@ const checarHistorialPassword = async(id) => {
     return rows.length > 0 ? rows : null;
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, obtenerUsuarioxId, checarHistorialPassword};
+const checarEditCorreo = async(id, correo) => {
+    const [rows] = await db.query("SELECT correo FROM usuarios WHERE correo = ? AND id != ? UNION ALL SELECT correo_adicional FROM expedientes WHERE correo_adicional = ?", [correo, id, correo])
+    return rows.length > 0 ? true : false;
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, obtenerUsuarioxId, checarHistorialPassword, checarEditCorreo};
