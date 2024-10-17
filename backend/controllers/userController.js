@@ -138,7 +138,8 @@ const crearUsuario = async (req, res) => {
 }
 
 const editarUsuario = async (req, res) => {
-    const id = req.query;
+
+    const id = Number(req.query.id);
 
     try{
         const getusuarioxid = await userModel.editarUsuario(id);
