@@ -14,5 +14,6 @@ router.get("/checarcorreo", authMiddleware, userController.checarCorreo);
 router.post("/crearusuario", authMiddleware, upload.single('foto'), validateUserData, userController.crearUsuario);
 router.get("/getusuarioxid", authMiddleware, userController.editarUsuario);
 router.get("/checareditusuario", authMiddleware, userController.checarEditUsuario);
+router.get("/checareditpassword", authMiddleware, userController.checarEditPassword);
 
 module.exports = router;

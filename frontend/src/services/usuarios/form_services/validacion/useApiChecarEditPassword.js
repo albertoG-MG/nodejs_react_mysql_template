@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL="http://localhost:8080/api/users/checareditpassword";
 
-export default async function useApiChecarEditPassword(token, password, id){
+export default async function useApiChecarEditPassword(token, { password }, id){
 
     try{
 

@@ -97,4 +97,14 @@ const checarEditUsuario = async(username, id) => {
     return rows.length > 0 ? true : false
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario};
+const obtenerUsuarioxId = async(id) => {
+    const [rows] = await db.query("SELECT * FROM usuarios WHERE id = ?", [id]);
+    return rows.length > 0 ? rows[0] : null;
+}
+
+const checarHistorialPassword = async(id) => {
+    const [rows] = await db.query("SELECT * FROM usuarios LEFT JOIN historial_password ON historial_password.user_id = usuarios.id WHERE usuarios.id = ?", [id]);
+    return rows.length > 0 ? rows : null;
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, obtenerUsuarioxId, checarHistorialPassword};

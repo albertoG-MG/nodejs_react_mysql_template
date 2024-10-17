@@ -4,6 +4,7 @@ const createUserService = require('../services/crear_usuarios/createUserService'
 const validationCheckUserService = require('../services/validacion/validationCheckUserService');
 const validationCheckPassword = require('../services/validacion/validationCheckPassword');
 const validationCheckCorreo = require('../services/validacion/validationCheckCorreo');
+const validationCheckEditPassword = require('../services/validacion/validationCheckEditPassword');
 const jwt = require('jsonwebtoken');
 
 const getUsers = async (req, res) => {
@@ -172,4 +173,24 @@ const checarEditUsuario = async(req, res) => {
     }
 }
 
-module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario };
+const checarEditPassword = async(req, res) => {
+    const { id, password } = req.query;
+
+    try{
+        const checkPassword = await validationCheckEditPassword(id, password);
+
+        if(checkPassword.sucess){
+            console.error("Hubo un error en la solicitud de la contraseña" +checkPassword.message);
+            return res.json({ success: checkPassword.sucess, message: checkPassword.message});
+        }
+
+        return res.json({ success: checkPassword.sucess, message: checkPassword.message});
+    }catch(error){
+        console.error("Error en la conexión de la API" +error);
+        return res.status(500).json({ error: "Error en la conexión de la API" });
+    }
+
+
+}
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, checarEditPassword };
