@@ -367,7 +367,7 @@ export default function EditarUsuarios() {
                     </div>
                     {Errores.correo && <p className="text-red-500">{Errores.correo}</p>}
                 </div>
-                <ObtenerRoles isEdit={id ? id : null} onRoleSelect={handleRoleSelect}/>
+                <ObtenerRoles isEdit={Campos.rol ? Campos.rol : null} onRoleSelect={handleRoleSelect}/>
             </form>
         </>
     );

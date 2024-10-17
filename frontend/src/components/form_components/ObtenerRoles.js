@@ -40,7 +40,8 @@ const RolesComponent = ({ isEdit, onRoleSelect }) => {
 
   useEffect(() => {
     if (isEdit) {
-      onRoleSelect(isEdit); 
+      setSelectedRol(isEdit);
+      onRoleSelect(isEdit);
     }
   }, [isEdit]);
 
