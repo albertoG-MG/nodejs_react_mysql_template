@@ -254,7 +254,7 @@ export default function Crearusuario() {
         }
     
         // Validar apellido materno
-        if(campo === "apellido_pat" || esEnvio){
+        if(campo === "apellido_mat" || esEnvio){
             if (!Campos.apellido_mat) {
                 errores.apellido_mat = 'El apellido materno es requerido.';
             } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.apellido_mat)) {

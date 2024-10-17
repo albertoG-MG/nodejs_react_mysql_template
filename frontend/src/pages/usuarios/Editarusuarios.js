@@ -147,12 +147,40 @@ export default function EditarUsuarios() {
         }
 
         if(campo === "password" || esEnvio){
-            if (!Campos.password) {
-                errores.password = 'La contraseña es requerida.';
-            } else if (Campos.password && Campos.password.length < 8) {
+            if (Campos.password && Campos.password.length < 8) {
                 errores.password = 'La contraseña debe de tener como mínimo 8 caracteres.';
             } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&*])[a-zA-Z0-9!@#$%&*]+$/.test(Campos.password)) {
                 errores.password = 'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (!@#$%&*).';
+            }
+        }
+
+        if(campo === "confirmpassword" || esEnvio){
+            if (Campos.password !== Campos.confirmpassword) {
+                errores.confirmpassword = 'La confirmación de la contraseña debe ser igual a la contraseña.';
+            }
+        }
+
+        if(campo === "nombre" || esEnvio){
+            if (!Campos.nombre) {
+                errores.nombre = 'El nombre es requerido.';
+            } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.nombre)) {
+                errores.nombre = 'El nombre solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+            }
+        }
+
+        if(campo === "apellido_pat" || esEnvio){
+            if (!Campos.apellido_pat) {
+                errores.apellido_pat = 'El apellido paterno es requerido.';
+            } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.apellido_pat)) {
+                errores.apellido_pat = 'El apellido paterno solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+            }
+        }
+
+        if(campo === "apellido_mat" || esEnvio){
+            if (!Campos.apellido_mat) {
+                errores.apellido_mat = 'El apellido materno es requerido.';
+            } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.apellido_mat)) {
+                errores.apellido_mat = 'El apellido materno solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
             }
         }
     
@@ -205,6 +233,82 @@ export default function EditarUsuarios() {
                         />
                     </div>
                     {Errores.password && <p className="text-red-500">{Errores.password}</p>}
+                </div>
+                <div className="grid grid-cols-1 mt-5 mx-7">
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa la confirmación de la contraseña</label>
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
+                            type="password"
+                            name="confirmpassword"
+                            placeholder="Confirma tu contraseña"
+                            value={Campos.confirmpassword}
+                            onChange={manejarCambio}
+                        />
+                    </div>
+                    {Errores.confirmpassword && <p className="text-red-500">{Errores.confirmpassword}</p>}
+                </div>
+                <div className="grid grid-cols-1 mt-5 mx-7">
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa el nombre</label>
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
+                            type="text"
+                            name="nombre"
+                            placeholder="Nombre"
+                            value={Campos.nombre}
+                            onChange={manejarCambio}
+                        />
+                    </div>
+                    {Errores.nombre && <p className="text-red-500">{Errores.nombre}</p>}
+                </div>
+                <div className="grid grid-cols-1 mt-5 mx-7">
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa el apellido paterno</label>
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
+                            type="text"
+                            name="apellido_pat"
+                            placeholder="Apellido Paterno"
+                            value={Campos.apellido_pat}
+                            onChange={manejarCambio}
+                        />
+                    </div>
+                    {Errores.apellido_pat && <p className="text-red-500">{Errores.apellido_pat}</p>}
+                </div>
+                <div className="grid grid-cols-1 mt-5 mx-7">
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa el apellido materno</label>
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
+                            type="text"
+                            name="apellido_mat"
+                            placeholder="Apellido Materno"
+                            value={Campos.apellido_mat}
+                            onChange={manejarCambio}
+                        />
+                    </div>
+                    {Errores.apellido_mat && <p className="text-red-500">{Errores.apellido_mat}</p>}
                 </div>
             </form>
         </>
