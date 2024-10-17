@@ -4,6 +4,7 @@ import useApiChecarUsuarioBack from '../../services/usuarios/useApiChecarUsuario
 import useApiChecarEditUsuario from '../../services/usuarios/form_services/validacion/useApiChecarEditUsuario';
 import useApiChecarEditPassword from '../../services/usuarios/form_services/validacion/useApiChecarEditPassword';
 import useApiChecarEditCorreo from '../../services/usuarios/form_services/validacion/useApiChecarEditCorreo';
+import ObtenerRoles from '../../components/form_components/ObtenerRoles';
 import Swal from 'sweetalert2';
 
 export default function EditarUsuarios() {
@@ -11,6 +12,7 @@ export default function EditarUsuarios() {
     const { id } = useParams();
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const [selectedRoleId, setSelectedRoleId] = useState('');
 
     // Definición de cada uno de los campos del formulario
     const [Campos, setCampos] = useState({
@@ -220,6 +222,14 @@ export default function EditarUsuarios() {
     }, []);
     
 
+    const handleRoleSelect = (roleId) => {
+        setSelectedRoleId(roleId);
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            rol: roleId
+        }));
+    };
+
     return (
         <>
             <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Editar Usuario</h1>
@@ -357,6 +367,7 @@ export default function EditarUsuarios() {
                     </div>
                     {Errores.correo && <p className="text-red-500">{Errores.correo}</p>}
                 </div>
+                <ObtenerRoles isEdit={id ? id : null} onRoleSelect={handleRoleSelect}/>
             </form>
         </>
     );
