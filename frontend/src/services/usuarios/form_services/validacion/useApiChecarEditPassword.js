@@ -18,7 +18,7 @@ export default async function useApiChecarEditPassword(token, { password }, id){
 
         return response.data;
     }catch(error){
-        console.error("Error al hacer la solicitud de password" +error);
+        console.error("Error al hacer la solicitud de password", error);
 
         let errorMessage = "Ocurrió un error inesperado";
 

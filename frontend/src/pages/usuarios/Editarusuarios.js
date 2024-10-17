@@ -3,6 +3,7 @@ import { useNavigate, useParams  } from 'react-router-dom';
 import useApiChecarUsuarioBack from '../../services/usuarios/useApiChecarUsuarioBack';
 import useApiChecarEditUsuario from '../../services/usuarios/form_services/validacion/useApiChecarEditUsuario';
 import useApiChecarEditPassword from '../../services/usuarios/form_services/validacion/useApiChecarEditPassword';
+import useApiChecarEditCorreo from '../../services/usuarios/form_services/validacion/useApiChecarEditCorreo';
 import Swal from 'sweetalert2';
 
 export default function EditarUsuarios() {
@@ -93,10 +94,13 @@ export default function EditarUsuarios() {
             } else if(name === 'password'){
                 clearTimeout(debounceRef.current);
                 debounceRef.current = setTimeout(() => verificarPassword(value, id), 500);
+            }else if(name === 'correo'){
+                clearTimeout(debounceRef.current);
+                debounceRef.current = setTimeout(() => verificarCorreo(value, id), 500);
             }
         } catch (err) {
             console.error('Error en la llamada a la API:', err);
-            setErrores((prev) => ({ ...prev, username: '', password: ''}));
+            setErrores((prev) => ({ ...prev, username: '', password: '', correo: ''}));
         }
     }
 
@@ -128,6 +132,22 @@ export default function EditarUsuarios() {
             setErrores((prev) => ({
                 ...prev,
                 password: prev.password || 'Error al verificar la contraseña. Inténtalo nuevamente.'
+            }));
+        }
+    };
+
+    const verificarCorreo = async (correo ,id) => {
+        try {
+            const { success, message } = await useApiChecarEditCorreo(token, { correo }, id);
+            setErrores((prev) => ({
+                ...prev,
+                correo: success ? prev.correo : message
+            }));
+        } catch (err) {
+            console.error('Error en la llamada a la API:', err);
+            setErrores((prev) => ({
+                ...prev,
+                correo: prev.correo || 'Error al verificar el correo. Inténtalo nuevamente.'
             }));
         }
     };
@@ -181,6 +201,14 @@ export default function EditarUsuarios() {
                 errores.apellido_mat = 'El apellido materno es requerido.';
             } else if (!/^[a-zA-Z\u00C0-\u00FF]+(?:[-'\s][a-zA-Z\u00C0-\u00FF]+)*$/.test(Campos.apellido_mat)) {
                 errores.apellido_mat = 'El apellido materno solo puede contener letras y caracteres acentuados, y los espacios o guiones deben estar correctamente posicionados.';
+            }
+        }
+
+        if(campo === "correo" || esEnvio){
+            if (!Campos.correo) {
+                errores.correo = 'El correo es requerido.';
+            } else if (!/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i.test(Campos.correo)) {
+                errores.correo = 'Formato de correo electrónico no válido. Por favor, introduce una dirección de correo electrónico válida.';
             }
         }
     
@@ -309,6 +337,25 @@ export default function EditarUsuarios() {
                         />
                     </div>
                     {Errores.apellido_mat && <p className="text-red-500">{Errores.apellido_mat}</p>}
+                </div>
+                <div className="grid grid-cols-1 mt-5 mx-7">
+                    <label className="text-[#64748b] font-semibold mb-2">Ingresa el correo electrónico</label>
+                    <div className="group flex">
+                        <div className="w-10 z-[1] pl-1 text-center pointer-events-none flex items-center justify-center">
+                            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"></path>
+                            </svg>
+                        </div>
+                        <input
+                            className="w-full -ml-10 pl-10 py-2 h-11 border rounded-md border-[#d1d5db] focus:ring-2 focus:ring-indigo-600 focus:outline-none"
+                            type="email"
+                            name="correo"
+                            placeholder="Correo Electrónico"
+                            value={Campos.correo}
+                            onChange={manejarCambio}
+                        />
+                    </div>
+                    {Errores.correo && <p className="text-red-500">{Errores.correo}</p>}
                 </div>
             </form>
         </>
