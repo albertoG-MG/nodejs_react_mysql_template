@@ -1,9 +1,7 @@
 import React, { useState, useRef } from 'react';
 
-const FileUpload = () => {
-    const [file, setFile] = useState(null);
+const FileUpload = ({ obtenerArchivo, obtenerError }) => {
     const [fileName, setFileName] = useState('Selecciona un archivo');
-    const [fileError, setFileError] = useState('');
     const [previewUrl, setPreviewUrl] = useState('');
     const [showActions, setShowActions] = useState(false);
     const fileInputRef = useRef(null); // Usamos useRef para manejar el input
@@ -14,20 +12,26 @@ const FileUpload = () => {
         if (selectedFile) {
             const validTypes = ['image/jpeg', 'image/png'];
             if (!validTypes.includes(selectedFile.type)) {
-                setFileError(`El archivo ${selectedFile.name} no es una imagen válida (jpg o png)`);
-                setShowActions(true);
+                obtenerError(`El archivo ${selectedFile.name} no es una imagen válida (jpg o png)`);
+                obtenerArchivo(null);
+                setFileName('Selecciona un archivo');
+                setPreviewUrl('');
+                setShowActions(false);
                 return;
             }
 
             if (selectedFile.size > 10485760) { // 10 MB
-                setFileError(`El archivo ${selectedFile.name} debe pesar menos de 10 MB.`);
-                setShowActions(true);
+                obtenerError(`El archivo ${selectedFile.name} debe pesar menos de 10 MB.`);
+                obtenerArchivo(null);
+                setFileName('Selecciona un archivo');
+                setPreviewUrl('');
+                setShowActions(false);
                 return;
             }
 
-            setFile(selectedFile);
+            obtenerArchivo(selectedFile);
             setFileName(selectedFile.name);
-            setFileError('');
+            obtenerError('');
             setShowActions(true);
 
             const reader = new FileReader();
@@ -40,10 +44,10 @@ const FileUpload = () => {
 
     const handleDeleteFile = () => {
         // Restablecer todo al estado inicial
-        setFile(null);
+        obtenerArchivo(null);
         setFileName('Selecciona un archivo');
         setPreviewUrl('');
-        setFileError('');
+        obtenerError('');
         setShowActions(false);
 
         // Limpiar el valor del input de archivo
@@ -53,8 +57,7 @@ const FileUpload = () => {
     };
 
     return (
-        <div className="grid grid-cols-1 mt-5 mx-7">
-            <label className="text-[#64748b] font-semibold mb-2">Subir foto</label>
+        <div className="grid grid-cols-1">
             <div className='flex items-center justify-center w-full'>
                 <label className='flex flex-col border-4 border-dashed w-full hover:bg-gray-100 hover:border-black group'>
                     <div className='flex flex-col items-center justify-center pt-7'>
@@ -76,7 +79,6 @@ const FileUpload = () => {
                     />
                 </label>
             </div>
-            {fileError && <div className="text-red-500 mt-2">{fileError}</div>}
             {showActions && (
                 <div className="flex flex-col md:flex-row justify-center mt-5 mx-7 gap-3">
                     <button 

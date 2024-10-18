@@ -5,6 +5,7 @@ import useApiChecarCorreo from "../../services/usuarios/form_services/validacion
 import ObtenerRoles from '../../components/form_components/ObtenerRoles';
 import ObtenerSubRoles from '../../components/form_components/ObtenerSubRoles';
 import ObtenerDepartamentos from '../../components/form_components/ObtenerDepartamentos';
+import Fileupload from '../../components/Fileupload';
 import useApiCrearUsuario from "../../services/usuarios/useApiCrearUsuario";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -32,7 +33,7 @@ export default function Crearusuario() {
     const [selectedRoleId, setSelectedRoleId] = useState('');
 
     //Estado para las imágenes
-    const [imagePreview, setImagePreview] = useState(null);
+    const [image, setImage] = useState(null);
 
     //Función debounce personalizada
     const debounceRef = useRef(null);
@@ -62,6 +63,21 @@ export default function Crearusuario() {
         }));
     };
 
+    const handleArchivoSelect = (file) => {
+        console.log(file);
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            foto: file
+        }));
+    };
+
+    const handleFotoError = (errorFoto) => {
+        setErrores((prevErrores) => ({
+            ...prevErrores,
+            foto: errorFoto
+        }));
+    };
+
     const [cargandoform, setCargandoform] = useState(false);
 
     //Para navegar entre rutas
@@ -69,81 +85,42 @@ export default function Crearusuario() {
 
     // Función que actualiza el estado de los campos en tiempo real
     const manejarCambio = async (e) => {
-        const { name, value, type, files } = e.target;
+        const { name, value } = e.target;
 
-        if (type === 'file') {
-            const selectedFile = files[0];
-            const validExtensions = ['jpg', 'jpeg', 'png'];
-            const maxSize = 10 * 1024 * 1024; // 10MB en bytes
-            let error = '';
+        // Actualiza el estado del campo
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            [name]: value
+        }));
 
-            // Validar la extensión y el tamaño
-            if (selectedFile) {
-                const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+        const erroresActuales = { ...Errores };
 
-                if (!validExtensions.includes(fileExtension)) {
-                    error = 'Solo se permiten archivos con las extensiones: jpg, jpeg, png.';
-                } else if (selectedFile.size > maxSize) {
-                    error = 'El tamaño del archivo debe ser menor a 10MB.';
-                }
-            }
+        const nuevoError = validar({ ...Campos, [name]: value }, name);
 
-            // Actualiza el estado y los errores solo si no hay errores
-            if (error) {
-                setErrores((prevErrores) => ({
-                    ...prevErrores,
-                    [name]: error
-                }));
-            } else {
-                setCampos((prevCampos) => ({
-                    ...prevCampos,
-                    [name]: selectedFile
-                }));
-                setErrores((prevErrores) => ({
-                    ...prevErrores,
-                    [name]: ''
-                }));
-            }
-
-             // Crear una URL de objeto para la vista previa de la imagen
-             const previewUrl = URL.createObjectURL(selectedFile);
-             setImagePreview(previewUrl);
+        if (nuevoError[name]) {
+            erroresActuales[name] = nuevoError[name];
         } else {
-            // Actualiza el estado del campo
-            setCampos((prevCampos) => ({
-                ...prevCampos,
-                [name]: value
-            }));
-
-            const erroresActuales = { ...Errores };
-
-            const nuevoError = validar({ ...Campos, [name]: value }, name);
-
-            if (nuevoError[name]) {
-                erroresActuales[name] = nuevoError[name];
-            } else {
-                erroresActuales[name] = ''; 
-            }
-
-            setErrores(erroresActuales);
-
-            try {
-                if (name === 'username') {
-                    clearTimeout(debounceRef.current);
-                    debounceRef.current = setTimeout(() => verificarUsuario(value), 500);
-
-                } else if (name === 'password') {
-                    clearTimeout(debounceRef.current);
-                    debounceRef.current = setTimeout(() => verificarPassword(value), 500);
-                } else if (name === 'correo') {
-                    clearTimeout(debounceRef.current);
-                    debounceRef.current = setTimeout(() => verificarCorreo(value), 500);
-                }
-            } catch (err) {
-                console.error('Error en la llamada a la API:', err);
-                setErrores((prev) => ({ ...prev, username: '', password: '', correo: '' }));
-            }
+            erroresActuales[name] = ''; 
         }
+
+        setErrores(erroresActuales);
+
+        try {
+            if (name === 'username') {
+                clearTimeout(debounceRef.current);
+                debounceRef.current = setTimeout(() => verificarUsuario(value), 500);
+
+            } else if (name === 'password') {
+                clearTimeout(debounceRef.current);
+                debounceRef.current = setTimeout(() => verificarPassword(value), 500);
+            } else if (name === 'correo') {
+                clearTimeout(debounceRef.current);
+                debounceRef.current = setTimeout(() => verificarCorreo(value), 500);
+            }
+        } catch (err) {
+            console.error('Error en la llamada a la API:', err);
+            setErrores((prev) => ({ ...prev, username: '', password: '', correo: '' }));
+        }  
     };
 
     const verificarUsuario = async (username) => {
@@ -481,23 +458,12 @@ export default function Crearusuario() {
                 <ObtenerRoles onRoleSelect={handleRoleSelect}/>
                 <ObtenerSubRoles onSubrolSelect={handleSubrolSelect} selectedRoleId={selectedRoleId} />
                 <ObtenerDepartamentos onDepartamentoSelect={handleDepartamentoSelect} selectedRoleId={selectedRoleId} />
-                {imagePreview && (
-                    <div className="grid grid-cols-1 mt-5 mx-7">
-                        <h3>Previsualización de la imagen:</h3>
-                        <img src={imagePreview} alt="Vista previa" style={{ maxWidth: '100px', maxHeight: '100px' }} />
-                    </div>
-                )}
-                <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="text-[#64748b] font-semibold mb-2">Foto de Perfil (opcional)</label>
-                    <input
-                        type="file"
-                        name="foto"
-                        accept="image/jpeg,image/png"
-                        onChange={manejarCambio}
-                    />
+                <div className="mt-5 mx-7">
+                    <label className="text-[#64748b] font-semibold mb-2">Subir foto</label>
+                    <Fileupload obtenerArchivo={handleArchivoSelect} obtenerError={handleFotoError}  />
                     {Errores.foto && <p className="text-red-500">{Errores.foto}</p>}
                 </div>
-                <div class="mt-8 h-px bg-slate-200"></div>
+                <div className="mt-8 h-px bg-slate-200"></div>
                 <div className="text-right">
                     {cargandoform ? (
                         <button disabled type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5 inline-flex items-center">
