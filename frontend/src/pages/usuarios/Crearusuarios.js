@@ -71,10 +71,10 @@ export default function Crearusuario() {
         }));
     };
 
-    const handleFotoError = (errorFoto) => {
+    const handleArchivoError = (errorFile) => {
         setErrores((prevErrores) => ({
             ...prevErrores,
-            foto: errorFoto
+            foto: errorFile
         }));
     };
 
@@ -460,7 +460,7 @@ export default function Crearusuario() {
                 <ObtenerDepartamentos onDepartamentoSelect={handleDepartamentoSelect} selectedRoleId={selectedRoleId} />
                 <div className="mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Subir foto</label>
-                    <Fileupload obtenerArchivo={handleArchivoSelect} obtenerError={handleFotoError}  />
+                    <Fileupload obtenerArchivo={handleArchivoSelect} obtenerError={handleArchivoError}  />
                     {Errores.foto && <p className="text-red-500">{Errores.foto}</p>}
                 </div>
                 <div className="mt-8 h-px bg-slate-200"></div>
