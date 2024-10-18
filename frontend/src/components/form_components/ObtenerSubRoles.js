@@ -9,6 +9,13 @@ const SubrolesComponent = ({ onSubrolSelect, selectedRoleId }) => {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
+
+    if (!selectedRoleId) {
+      setSubRoles([]);
+      setLoading(false);
+      return;
+    }
+
     const getSubRoles = async () => {
       setLoading(true);
       setError(null);
@@ -17,9 +24,9 @@ const SubrolesComponent = ({ onSubrolSelect, selectedRoleId }) => {
         const data = await fetchSubroles(token, selectedRoleId);
         setSubRoles(data);
       } catch (error) {
+        setSubRoles([]);
         if (error.response && error.response.status === 404) {
-            setSubRoles([]);
-            setError('No hay subroles disponibles para este rol');
+            setError('No se encontraron subroles para este rol');
         }else{
             setError('Error al cargar subroles: ' + error.message);
         }
@@ -36,8 +43,15 @@ const SubrolesComponent = ({ onSubrolSelect, selectedRoleId }) => {
     onSubrolSelect(selected_subrol);
   }
 
-  if (loading) return  <div className="grid grid-cols-1 bg-slate-100 rounded-md p-4 mt-5 mx-7"><p>Cargando subroles...</p></div>;            
-  if (error) return <div className="grid grid-cols-1 bg-slate-100 rounded-md p-4 mt-5 mx-7"><p>{ error }</p></div>;    
+  if (loading) return  <div className="grid grid-cols-1 bg-slate-100 rounded-md p-4 mt-5 mx-7"><p>Cargando subroles...</p></div>;
+  
+  if (error) {
+    return <div className="grid grid-cols-1 bg-slate-100 rounded-md p-4 mt-5 mx-7"><p>{error}</p></div>;
+  }
+
+  if (subroles.length === 0) {
+    return <div className="grid grid-cols-1 bg-slate-100 rounded-md p-4 mt-5 mx-7"><p>No se encontraron subroles para este rol</p></div>;
+  }
 
   return (
     <div className="grid grid-cols-1 mt-5 mx-7">
