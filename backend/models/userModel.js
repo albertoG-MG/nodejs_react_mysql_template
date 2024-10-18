@@ -18,7 +18,7 @@ const getUsers = async (query, limit, skip, sortField, sortOrder, callback) => {
         
         // Agregar condiciones de búsqueda solo si hay un valor para `query`
         if (query) {
-            sql += ` AND (u.id = ? OR u.username LIKE ? OR u.correo LIKE ? OR d.departamento LIKE ? OR r.nombre LIKE ? OR sb.subrol_nombre LIKE ?)`;
+            sql += ` AND (u.id = ? OR u.username LIKE ? OR u.correo LIKE ? OR COALESCE(d.departamento, 'SIN DEPARTAMENTO') LIKE ? OR COALESCE(r.nombre, 'SIN ROL') LIKE ? OR COALESCE(sb.subrol_nombre, 'SIN PUESTO') LIKE ?)`;
             params.push(query, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`);
         }
 
@@ -47,7 +47,7 @@ const getTotalUsers = async (query) => {
 
     // Agregar condiciones de búsqueda solo si hay un valor para `query`
     if (query) {
-        sql += ` AND (u.id = ? OR u.username LIKE ? OR u.correo LIKE ? OR d.departamento LIKE ? OR r.nombre LIKE ? OR sb.subrol_nombre LIKE ?)`;
+        sql += ` AND (u.id = ? OR u.username LIKE ? OR u.correo LIKE ? OR COALESCE(d.departamento, 'SIN DEPARTAMENTO') LIKE ? OR COALESCE(r.nombre, 'SIN ROL') LIKE ? OR COALESCE(sb.subrol_nombre, 'SIN PUESTO') LIKE ?)`;
         params.push(query, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`);
     }
 
