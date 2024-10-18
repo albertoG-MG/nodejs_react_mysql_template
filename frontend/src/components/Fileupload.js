@@ -1,18 +1,17 @@
 import React, { useState, useRef } from 'react';
 
-const FileUpload = ({ obtenerArchivo, obtenerError }) => {
+const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/jpeg', 'image/png'] }) => {
     const [fileName, setFileName] = useState('Selecciona un archivo');
     const [previewUrl, setPreviewUrl] = useState('');
     const [showActions, setShowActions] = useState(false);
-    const fileInputRef = useRef(null); // Usamos useRef para manejar el input
+    const fileInputRef = useRef(null);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
 
         if (selectedFile) {
-            const validTypes = ['image/jpeg', 'image/png'];
-            if (!validTypes.includes(selectedFile.type)) {
-                obtenerError(`El archivo ${selectedFile.name} no es una imagen válida (jpg o png)`);
+            if (!acceptedFileTypes.includes(selectedFile.type)) {
+                obtenerError(`El archivo ${selectedFile.name} no es un archivo válido (${acceptedFileTypes.join(', ')})`);
                 obtenerArchivo(null);
                 setFileName('Selecciona un archivo');
                 setPreviewUrl('');
@@ -20,7 +19,7 @@ const FileUpload = ({ obtenerArchivo, obtenerError }) => {
                 return;
             }
 
-            if (selectedFile.size > 10485760) { // 10 MB
+            if (selectedFile.size > 10485760) {
                 obtenerError(`El archivo ${selectedFile.name} debe pesar menos de 10 MB.`);
                 obtenerArchivo(null);
                 setFileName('Selecciona un archivo');
@@ -34,25 +33,27 @@ const FileUpload = ({ obtenerArchivo, obtenerError }) => {
             obtenerError('');
             setShowActions(true);
 
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setPreviewUrl(event.target.result);
-            };
-            reader.readAsDataURL(selectedFile);
+            if (selectedFile.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    setPreviewUrl(event.target.result);
+                };
+                reader.readAsDataURL(selectedFile);
+            } else {
+                setPreviewUrl('');
+            }
         }
     };
 
     const handleDeleteFile = () => {
-        // Restablecer todo al estado inicial
         obtenerArchivo(null);
         setFileName('Selecciona un archivo');
         setPreviewUrl('');
         obtenerError('');
         setShowActions(false);
 
-        // Limpiar el valor del input de archivo
         if (fileInputRef.current) {
-            fileInputRef.current.value = null; // Restablecemos el valor del input
+            fileInputRef.current.value = null;
         }
     };
 
@@ -72,10 +73,10 @@ const FileUpload = ({ obtenerArchivo, obtenerError }) => {
                     <input 
                         type='file' 
                         name="foto" 
-                        accept="image/jpeg,image/png" 
+                        accept={acceptedFileTypes.join(',')}
                         className="hidden" 
                         onChange={handleFileChange} 
-                        ref={fileInputRef} // Referencia al input de archivo
+                        ref={fileInputRef}
                     />
                 </label>
             </div>
