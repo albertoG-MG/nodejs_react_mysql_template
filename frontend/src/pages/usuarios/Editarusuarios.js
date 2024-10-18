@@ -5,6 +5,7 @@ import useApiChecarEditUsuario from '../../services/usuarios/form_services/valid
 import useApiChecarEditPassword from '../../services/usuarios/form_services/validacion/useApiChecarEditPassword';
 import useApiChecarEditCorreo from '../../services/usuarios/form_services/validacion/useApiChecarEditCorreo';
 import ObtenerRoles from '../../components/form_components/ObtenerRoles';
+import ObtenerSubRoles from '../../components/form_components/ObtenerSubRoles';
 import Swal from 'sweetalert2';
 
 export default function EditarUsuarios() {
@@ -230,6 +231,13 @@ export default function EditarUsuarios() {
         }));
     };
 
+    const handleSubrolSelect = (subrolId) => {
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            subrol: subrolId
+        }));
+    };
+
     return (
         <>
             <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Editar Usuario</h1>
@@ -368,6 +376,7 @@ export default function EditarUsuarios() {
                     {Errores.correo && <p className="text-red-500">{Errores.correo}</p>}
                 </div>
                 <ObtenerRoles isEdit={Campos.rol ? Campos.rol : null} onRoleSelect={handleRoleSelect}/>
+                <ObtenerSubRoles isEdit={Campos.subrol ? Campos.subrol : null} onSubrolSelect={handleSubrolSelect} selectedRoleId={selectedRoleId} />
             </form>
         </>
     );
