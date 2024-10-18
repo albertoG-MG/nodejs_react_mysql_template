@@ -6,6 +6,8 @@ import useApiChecarEditPassword from '../../services/usuarios/form_services/vali
 import useApiChecarEditCorreo from '../../services/usuarios/form_services/validacion/useApiChecarEditCorreo';
 import ObtenerRoles from '../../components/form_components/ObtenerRoles';
 import ObtenerSubRoles from '../../components/form_components/ObtenerSubRoles';
+import ObtenerDepartamentos from '../../components/form_components/ObtenerDepartamentos';
+
 import Swal from 'sweetalert2';
 
 export default function EditarUsuarios() {
@@ -238,6 +240,13 @@ export default function EditarUsuarios() {
         }));
     };
 
+    const handleDepartamentoSelect = (departamentoId) => {
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            departamento: departamentoId
+        }));
+    };
+
     return (
         <>
             <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Editar Usuario</h1>
@@ -377,6 +386,7 @@ export default function EditarUsuarios() {
                 </div>
                 <ObtenerRoles isEdit={Campos.rol ? Campos.rol : null} onRoleSelect={handleRoleSelect}/>
                 <ObtenerSubRoles isEdit={Campos.subrol ? Campos.subrol : null} onSubrolSelect={handleSubrolSelect} selectedRoleId={selectedRoleId} />
+                <ObtenerDepartamentos isEdit={Campos.departamento ? Campos.departamento : null} onDepartamentoSelect={handleDepartamentoSelect} selectedRoleId={selectedRoleId} />
             </form>
         </>
     );
