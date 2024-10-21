@@ -34,7 +34,7 @@ const validateEditUserData = async (req, res, next) => {
             errores.password = 'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (!@#$%&*).';
         } else {
             const checar_password = await user_password_service.validationCheckEditPassword(id, Campos.password);
-            if (checar_password) {
+            if (checar_password.success) {
                 errores.password = checar_password.message;
             }
         }

@@ -17,6 +17,6 @@ router.get("/getusuarioxid", authMiddleware, userController.editarUsuario);
 router.get("/checareditusuario", authMiddleware, userController.checarEditUsuario);
 router.get("/checareditpassword", authMiddleware, userController.checarEditPassword);
 router.get("/checareditcorreo", authMiddleware, userController.checarEditCorreo);
-router.put("/editarusuario/:id", authMiddleware, upload.single('foto'), validateEditUserData, userController.editarUsuario);
+router.put("/editarusuario/:id", authMiddleware, upload.single('foto'), validateEditUserData, userController.editarUsuarioPage);
 
 module.exports = router;

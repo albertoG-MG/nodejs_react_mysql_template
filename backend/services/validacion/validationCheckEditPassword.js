@@ -42,4 +42,4 @@ const validationCheckEditPassword = async(id, password) => {
     return { success: false, message: 'Contraseña válida'};
 }
 
-module.exports = validationCheckEditPassword ;
+module.exports = { validationCheckEditPassword };

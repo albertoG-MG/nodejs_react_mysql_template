@@ -112,4 +112,45 @@ const checarEditCorreo = async(id, correo) => {
     return rows.length > 0 ? true : false;
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, obtenerUsuarioxId, checarHistorialPassword, checarEditCorreo};
+const editarUsuarioPage = async (editarUsuario, id) => {
+    const { username, password, nombre, apellido_pat, apellido_mat, correo, departamento, rol, subrol, nombre_archivo, foto } = editarUsuario;
+
+    // Crear la consulta SQL para actualizar el usuario
+    const query = `
+        UPDATE usuarios 
+        SET 
+            username = ?, 
+            password = ?, 
+            nombre = ?, 
+            apellido_pat = ?, 
+            apellido_mat = ?, 
+            correo = ?, 
+            departamento_id = ?, 
+            roles_id = ?, 
+            subrol_id = ?, 
+            nombre_foto = ?, 
+            foto_identificador = ?
+        WHERE id = ?
+    `;
+
+    // Ejecutar la consulta con los nuevos valores y el ID del usuario
+    const [result] = await db.query(query, [
+        username, 
+        password, 
+        nombre, 
+        apellido_pat, 
+        apellido_mat, 
+        correo, 
+        departamento, 
+        rol, 
+        subrol, 
+        nombre_archivo, 
+        foto,
+        id // ID del usuario que se va a actualizar
+    ]);
+
+    // Retornar si la actualización fue exitosa
+    return result.affectedRows > 0;
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, obtenerUsuarioxId, checarHistorialPassword, checarEditCorreo, editarUsuarioPage};

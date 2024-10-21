@@ -2,8 +2,11 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api/users/editarusuario';
 
-export default async function useApiEditarUsuario(token, formData, id) {
+export default async function useApiEditarUsuario(token, formData, id, borrado) {
     try {
+
+        formData.append('borrado', borrado);
+
         const response = await axios.put(`${API_URL}/${id}`, formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,

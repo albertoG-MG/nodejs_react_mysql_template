@@ -296,7 +296,7 @@ export default function EditarUsuarios() {
 
             const token = localStorage.getItem('token');
             try {
-                const { success, message } = await useApiEditarUsuario(token, formData, id);
+                const { success, message } = await useApiEditarUsuario(token, formData, id, borrado);
                 if(success){
                     const result = await Swal.fire({
                         title: '¡Éxito!',

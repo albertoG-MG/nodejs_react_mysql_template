@@ -5,6 +5,7 @@ const validationCheckUserService = require('../services/validacion/validationChe
 const validationCheckPassword = require('../services/validacion/validationCheckPassword');
 const validationCheckCorreo = require('../services/validacion/validationCheckCorreo');
 const validationCheckEditPassword = require('../services/validacion/validationCheckEditPassword');
+const editarUserService = require('../services/editar_usuarios/editarUserService');
 const jwt = require('jsonwebtoken');
 
 const getUsers = async (req, res) => {
@@ -205,4 +206,25 @@ const checarEditCorreo = async(req, res) => {
     return res.json({ success: true, message: "El correo está disponible" });
 }
 
-module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, checarEditPassword, checarEditCorreo };
+const editarUsuarioPage = async(req, res) => {
+    const { id } = req.params;
+    const formData  = req.body;
+    const foto = req.file; 
+
+    try{
+        const usuario_editar = await editarUserService.editarUsuario(formData, foto, id);
+
+        if(usuario_editar){
+            console.log("Usuario editado exitósamente");
+            return res.json({ success: true, message: "Usuario editado exitósamente"  });
+        }else{
+            console.error("Error al editar usuario");
+            return res.json({ success: false, message: "Error al editar usuario"  });
+        }
+    }catch(error){
+        console.error("Error en la API de editar usuario" +error);
+        return res.status(500).json({ error: "Error en la API de editar usuario"  });
+    }
+}
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, checarEditPassword, checarEditCorreo, editarUsuarioPage };
