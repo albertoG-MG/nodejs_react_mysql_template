@@ -337,7 +337,7 @@ export default function EditarUsuarios() {
     return (
         <>
             <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Editar Usuario</h1>
-            <form onSubmit={manejarEnvio}>
+            <form onSubmit={(e) => manejarEnvio(e, id)}>
                 <div className="grid grid-cols-1 mt-5 mx-7">
                     <label className="text-[#64748b] font-semibold mb-2">Ingrese el usuario</label>
                     <div className="group flex">
