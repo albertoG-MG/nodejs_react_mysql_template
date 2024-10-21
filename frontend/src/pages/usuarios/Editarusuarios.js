@@ -7,6 +7,7 @@ import useApiChecarEditCorreo from '../../services/usuarios/form_services/valida
 import ObtenerRoles from '../../components/form_components/ObtenerRoles';
 import ObtenerSubRoles from '../../components/form_components/ObtenerSubRoles';
 import ObtenerDepartamentos from '../../components/form_components/ObtenerDepartamentos';
+import Fileupload from '../../components/Fileupload';
 
 import Swal from 'sweetalert2';
 
@@ -29,6 +30,7 @@ export default function EditarUsuarios() {
         rol: '',
         subrol: '',
         departamento: '',
+        nombreArchivo: null,
         foto: null
     });
     const [Errores, setErrores] = useState({});
@@ -62,6 +64,7 @@ export default function EditarUsuarios() {
                 rol: getusuarioxid.roles_id,
                 subrol: getusuarioxid.subrol_id,
                 departamento: getusuarioxid.departamento_id,
+                nombreArchivo: getusuarioxid.nombre_foto,
                 foto: getusuarioxid.foto_identificador
             });
         }
@@ -247,6 +250,21 @@ export default function EditarUsuarios() {
         }));
     };
 
+    const handleArchivoSelect = (file) => {
+        console.log(file);
+        setCampos((prevCampos) => ({
+            ...prevCampos,
+            foto: file
+        }));
+    };
+
+    const handleArchivoError = (errorFile) => {
+        setErrores((prevErrores) => ({
+            ...prevErrores,
+            foto: errorFile
+        }));
+    };
+
     return (
         <>
             <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Editar Usuario</h1>
@@ -387,6 +405,31 @@ export default function EditarUsuarios() {
                 <ObtenerRoles isEdit={Campos.rol ? Campos.rol : null} onRoleSelect={handleRoleSelect}/>
                 <ObtenerSubRoles isEdit={Campos.subrol ? Campos.subrol : null} onSubrolSelect={handleSubrolSelect} selectedRoleId={selectedRoleId} />
                 <ObtenerDepartamentos isEdit={Campos.departamento ? Campos.departamento : null} onDepartamentoSelect={handleDepartamentoSelect} selectedRoleId={selectedRoleId} />
+                <div className="mt-5 mx-7">
+                    <label className="text-[#64748b] font-semibold mb-2">Subir foto</label>
+                    {Campos.nombreArchivo && Campos.foto ? (
+                        <Fileupload 
+                            obtenerArchivo={handleArchivoSelect} 
+                            obtenerError={handleArchivoError} 
+                            acceptedFileTypes={['image/jpeg', 'image/png']} 
+                            isEdit={true} 
+                            nombre_archivo={Campos.nombreArchivo} 
+                            archivo={Campos.foto} 
+                            onDelete={false} 
+                        />
+                    ) : (
+                        <Fileupload 
+                            obtenerArchivo={handleArchivoSelect} 
+                            obtenerError={handleArchivoError} 
+                            acceptedFileTypes={['image/jpeg', 'image/png']} 
+                            isEdit={true} 
+                            nombre_archivo={null} 
+                            archivo={null} 
+                            onDelete={false} 
+                        />
+                    )}
+                    {Errores.foto && <p className="text-red-500">{Errores.foto}</p>}
+                </div>
             </form>
         </>
     );

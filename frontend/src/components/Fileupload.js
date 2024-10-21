@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/jpeg', 'image/png'] }) => {
+const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/jpeg', 'image/png'], isEdit, nombre_archivo, archivo, onDelete }) => {
     const [fileName, setFileName] = useState('Selecciona un archivo');
     const [previewUrl, setPreviewUrl] = useState('');
     const [showActions, setShowActions] = useState(false);
@@ -56,6 +56,29 @@ const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/
             fileInputRef.current.value = null;
         }
     };
+
+    useEffect(() => {
+        const verificarImagen = (url) => {
+            const img = new Image();
+            img.onload = () => setPreviewUrl(url);
+            img.onerror = () => {
+                setPreviewUrl('../../../images/not_found.jpg');
+                setFileName('not_found.jpg');
+            };
+            img.src = url;
+        };
+    
+        if (isEdit) {
+            if (nombre_archivo && archivo) {
+                const imagenUrl = `../../../uploads/${archivo}`;
+                verificarImagen(imagenUrl);
+                setFileName(nombre_archivo);
+            } else {
+                setPreviewUrl('../../../images/default-user.png');
+                setFileName('default-user.png');
+            }
+        }
+    }, [isEdit, nombre_archivo, archivo]);  
 
     return (
         <div className="grid grid-cols-1">
