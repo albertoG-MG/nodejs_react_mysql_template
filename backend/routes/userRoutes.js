@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const authMiddleware = require('../middleware/authMiddleware');
 const { validateUserData } = require('../middleware/usuarios/crearUsuariosMiddleware');
+const { validateEditUserData } = require('../middleware/usuarios/editarUsuariosMiddleware');
 const multer = require('multer');
 const upload = multer(); 
 
@@ -16,5 +17,6 @@ router.get("/getusuarioxid", authMiddleware, userController.editarUsuario);
 router.get("/checareditusuario", authMiddleware, userController.checarEditUsuario);
 router.get("/checareditpassword", authMiddleware, userController.checarEditPassword);
 router.get("/checareditcorreo", authMiddleware, userController.checarEditCorreo);
+router.put("/editarusuario/:id", authMiddleware, upload.single('foto'), validateEditUserData, userController.editarUsuario);
 
 module.exports = router;
