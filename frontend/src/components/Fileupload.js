@@ -32,6 +32,9 @@ const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/
             setFileName(selectedFile.name);
             obtenerError('');
             setShowActions(true);
+            if(isEdit && onDelete){
+                onDelete(false);
+            }
 
             if (selectedFile.type.startsWith('image/')) {
                 const reader = new FileReader();
@@ -51,6 +54,9 @@ const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/
         setPreviewUrl('');
         obtenerError('');
         setShowActions(false);
+        if(isEdit && onDelete){
+            onDelete(true);
+        }
 
         if (fileInputRef.current) {
             fileInputRef.current.value = null;

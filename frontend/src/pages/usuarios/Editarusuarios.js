@@ -35,6 +35,7 @@ export default function EditarUsuarios() {
     });
     const [Errores, setErrores] = useState({});
     const debounceRef = useRef(null);
+    const [borrado, setBorrado] = useState('');
 
     //Traer valores de la base de datos
     const checarUserDatos = async () => {
@@ -265,6 +266,10 @@ export default function EditarUsuarios() {
         }));
     };
 
+    const ManejarBorrado = (borrar) => {
+        setBorrado(borrar);
+    };       
+
     return (
         <>
             <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl mb-5 mx-7">Editar Usuario</h1>
@@ -415,7 +420,7 @@ export default function EditarUsuarios() {
                             isEdit={true} 
                             nombre_archivo={Campos.nombreArchivo} 
                             archivo={Campos.foto} 
-                            onDelete={false} 
+                            onDelete={ManejarBorrado} 
                         />
                     ) : (
                         <Fileupload 
@@ -424,8 +429,7 @@ export default function EditarUsuarios() {
                             acceptedFileTypes={['image/jpeg', 'image/png']} 
                             isEdit={true} 
                             nombre_archivo={null} 
-                            archivo={null} 
-                            onDelete={false} 
+                            archivo={null}
                         />
                     )}
                     {Errores.foto && <p className="text-red-500">{Errores.foto}</p>}
