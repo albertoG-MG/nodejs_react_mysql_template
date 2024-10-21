@@ -272,7 +272,7 @@ export default function EditarUsuarios() {
         setBorrado(borrar);
     };
 
-    const manejarEnvio = async (e) => {
+    const manejarEnvio = async (e, id) => {
         e.preventDefault();
 
         const erroresEnTiempoReal = { ...Errores };
@@ -296,7 +296,7 @@ export default function EditarUsuarios() {
 
             const token = localStorage.getItem('token');
             try {
-                const { success, message } = await useApiEditarUsuario(token, formData);
+                const { success, message } = await useApiEditarUsuario(token, formData, id);
                 if(success){
                     const result = await Swal.fire({
                         title: '¡Éxito!',
