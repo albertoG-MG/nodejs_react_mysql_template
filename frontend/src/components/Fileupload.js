@@ -64,6 +64,7 @@ const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/
             img.onerror = () => {
                 setPreviewUrl('../../../images/not_found.jpg');
                 setFileName('not_found.jpg');
+                setShowActions(true);
             };
             img.src = url;
         };
@@ -73,9 +74,11 @@ const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/
                 const imagenUrl = `../../../uploads/${archivo}`;
                 verificarImagen(imagenUrl);
                 setFileName(nombre_archivo);
+                setShowActions(true);
             } else {
                 setPreviewUrl('../../../images/default-user.png');
                 setFileName('default-user.png');
+                setShowActions(false);
             }
         }
     }, [isEdit, nombre_archivo, archivo]);  
