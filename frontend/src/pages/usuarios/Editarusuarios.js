@@ -36,7 +36,7 @@ export default function EditarUsuarios() {
     });
     const [Errores, setErrores] = useState({});
     const debounceRef = useRef(null);
-    const [borrado, setBorrado] = useState('');
+    const [borrado, setBorrado] = useState(false);
     const [cargandoform, setCargandoform] = useState(false);
 
     //Traer valores de la base de datos
@@ -177,16 +177,18 @@ export default function EditarUsuarios() {
             }
         }
 
-        if(campo === "password" || esEnvio){
-            if (Campos.password && Campos.password.length < 8) {
-                errores.password = 'La contraseña debe de tener como mínimo 8 caracteres.';
-            } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&*])[a-zA-Z0-9!@#$%&*]+$/.test(Campos.password)) {
-                errores.password = 'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (!@#$%&*).';
+        if (campo === "password" || esEnvio) {
+            if (Campos.password) {
+                if (Campos.password.length < 8) {
+                    errores.password = 'La contraseña debe de tener como mínimo 8 caracteres.';
+                } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&*])[a-zA-Z0-9!@#$%&*]+$/.test(Campos.password)) {
+                    errores.password = 'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (!@#$%&*).';
+                }
             }
         }
-
-        if(campo === "confirmpassword" || esEnvio){
-            if (Campos.password !== Campos.confirmpassword) {
+        
+        if (campo === "confirmpassword" || esEnvio) {
+            if (Campos.password && Campos.password !== Campos.confirmpassword) {
                 errores.confirmpassword = 'La confirmación de la contraseña debe ser igual a la contraseña.';
             }
         }
@@ -268,8 +270,8 @@ export default function EditarUsuarios() {
         }));
     };
 
-    const ManejarBorrado = (borrar) => {
-        setBorrado(borrar);
+    const ManejarBorrado = (esBorrado) => {
+        setBorrado(esBorrado);
     };
 
     const manejarEnvio = async (e, id) => {
@@ -492,6 +494,7 @@ export default function EditarUsuarios() {
                             isEdit={true} 
                             nombre_archivo={null} 
                             archivo={null}
+                            onDelete={ManejarBorrado} 
                         />
                     )}
                     {Errores.foto && <p className="text-red-500">{Errores.foto}</p>}

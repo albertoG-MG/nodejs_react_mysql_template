@@ -32,7 +32,7 @@ const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/
             setFileName(selectedFile.name);
             obtenerError('');
             setShowActions(true);
-            if(isEdit && onDelete){
+            if(isEdit){
                 onDelete(false);
             }
 
@@ -54,7 +54,7 @@ const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/
         setPreviewUrl('');
         obtenerError('');
         setShowActions(false);
-        if(isEdit && onDelete){
+        if(isEdit){
             onDelete(true);
         }
 
@@ -82,8 +82,8 @@ const FileUpload = ({ obtenerArchivo, obtenerError, acceptedFileTypes = ['image/
                 setFileName(nombre_archivo);
                 setShowActions(true);
             } else {
-                setPreviewUrl('../../../images/default-user.png');
-                setFileName('default-user.png');
+                setPreviewUrl('');
+                setFileName('Selecciona un archivo');
                 setShowActions(false);
             }
         }
