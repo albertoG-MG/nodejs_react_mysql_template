@@ -8,6 +8,7 @@ import ObtenerRoles from '../../components/form_components/ObtenerRoles';
 import ObtenerSubRoles from '../../components/form_components/ObtenerSubRoles';
 import ObtenerDepartamentos from '../../components/form_components/ObtenerDepartamentos';
 import Fileupload from '../../components/Fileupload';
+import useApiEditarUsuario from "../../services/usuarios/useApiEditarUsuario";
 
 import Swal from 'sweetalert2';
 
@@ -294,8 +295,38 @@ export default function EditarUsuarios() {
             }
 
             const token = localStorage.getItem('token');
+            try {
+                const { success, message } = await useApiEditarUsuario(token, formData);
+                if(success){
+                    const result = await Swal.fire({
+                        title: '¡Éxito!',
+                        text: message,
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    });
             
-
+                    if (result.isConfirmed) {
+                        navigate('/usuarios/consulta');
+                    }
+                }else{
+                    Swal.fire({
+                        title: 'Error',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            } catch (err) {
+                console.error('Error en la llamada a la API:', err);
+                Swal.fire({
+                    title: 'Error',
+                    text: message,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            } finally {
+                setCargandoform(false);
+            }
         } else {
             console.log('Hay errores en el formulario', erroresFiltrados);
         }
