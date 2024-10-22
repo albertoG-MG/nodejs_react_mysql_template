@@ -18,5 +18,6 @@ router.get("/checareditusuario", authMiddleware, userController.checarEditUsuari
 router.get("/checareditpassword", authMiddleware, userController.checarEditPassword);
 router.get("/checareditcorreo", authMiddleware, userController.checarEditCorreo);
 router.put("/editarusuario/:id", authMiddleware, upload.single('foto'), validateEditUserData, userController.editarUsuarioPage);
+router.delete("/eliminarusuario/:id", authMiddleware, userController.eliminarUsuario);
 
 module.exports = router;

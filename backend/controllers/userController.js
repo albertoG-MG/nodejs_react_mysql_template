@@ -227,4 +227,25 @@ const editarUsuarioPage = async(req, res) => {
     }
 }
 
-module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, checarEditPassword, checarEditCorreo, editarUsuarioPage };
+const eliminarUsuario = async(req, res) => {
+    const { id } = req.params;
+
+    try{
+        const usuario_eliminado = await userModel.eliminarUsuario(id);
+
+        if(usuario_eliminado){
+            return {
+                success: true,
+                message: "Se ha eliminado el usuario"
+            };
+        }else{
+            console.error("No se pudo eliminar el usuario");
+            return res.status(404).json({ success: false, message: "Error en la consulta para eliminar al usuario" })
+        }
+    }catch(error){
+        console.error("Error en la conexión de la base de datos para eliminar el usuario", error);
+        return res.status(500).json({ error: "Error en la conexión de la base de datos para eliminar el usuario" });
+    }
+}
+
+module.exports = { getUsers, login, checarUsuarios, checarPassword, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, checarEditPassword, checarEditCorreo, editarUsuarioPage, eliminarUsuario };

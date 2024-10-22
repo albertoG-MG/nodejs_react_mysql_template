@@ -153,4 +153,9 @@ const editarUsuarioPage = async (editarUsuario, id) => {
     return result.affectedRows > 0;
 }
 
-module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, obtenerUsuarioxId, checarHistorialPassword, checarEditCorreo, editarUsuarioPage};
+const eliminarUsuario = async(id) => {
+    const [rows] = await db.query("DELETE FROM usuarios WHERE id = ?", [id]);
+    return rows.affectedRows > 0;
+}
+
+module.exports = {getUsers, getTotalUsers, login, checarUsuarios, checarblacklisted, checarCorreo, crearUsuario, editarUsuario, checarEditUsuario, obtenerUsuarioxId, checarHistorialPassword, checarEditCorreo, editarUsuarioPage, eliminarUsuario};
