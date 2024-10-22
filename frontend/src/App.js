@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import ConsultaUsuarios from './pages/usuarios/Consulta';
 import CrearUsuarios from './pages/usuarios/Crearusuarios';
 import EditarUsuarios from './pages/usuarios/Editarusuarios';
+import EliminarUsuarios from './pages/usuarios/EliminarUsuarios';
 import NavbarMenu from './components/NavbarMenu';
 import SidebarMenu from './components/SidebarMenu';
 
@@ -65,6 +66,7 @@ export default function App() {
                                     <Route path="/usuarios/consulta" element={<ConsultaUsuarios />} />
                                     <Route path="/usuarios/crear" element={<CrearUsuarios />} />
                                     <Route path="/usuarios/editar/:id" element={<EditarUsuarios />} />
+                                    <Route path="/usuarios/eliminar/:id" element={<EliminarUsuarios />} />
                                     <Route path="*" element={<Navigate to="/" />} />
                             </Routes>
                         </div>
